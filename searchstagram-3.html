@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <title></title>
+</head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+
+          <div class="page-header">
+            <h1>Searchstagram! Part 3</h1>
+          </div>
+
+          <a href="index.html">Back to Home</a>
+
+          <div class="topic">
+            <h3>Intro</h3>
+
+            <p>This last section is completely optional and will cover new advanced topics. Here is our goal:</p>
+
+            <p>We want our users to log-in to Instagram <strong>through our app</strong>. We will reproduce the process we went through during part-1, now inside of our app.</p>
+          </div>
+
+          <div class="topic">
+            <h3>Setup</h3>
+
+            <p>Go <a href="https://github.com/amhayslip/searchstagram/tree/101-part-3-start">here</a> and download the necessary files for Part 3 and open the folder in Sublime. You'll notice a bunch of new files/folders (gulpfile, node_modules, etc). These are for starting a local server and we'll go over them momentarily.</p>
+          </div>
+
+          <div class="topic">
+            <h3>Local Server</h3>
+
+            <p>Before we look at the files we just downloaded, let's talk real quickly about starting a "local server". If you remember back to Part 1, we have to send our users away from our page to Instagram to log-in, then Instagram sends them back to our page through that "Redirect URI" we gave them. Also if you remember, we told them that our Redirct URI was "http://localhost:4000".</p>
+
+            <p>Thefore, we have to setup a local server at <strong>http://localhost:4000</strong>. Logisitically, this is the hardest part of our process, and frankly, much easier to do with a Mac/Linux Machine than Windows. For the sake of the exercise, we'll bypass this and use a workaround, but if you're uber-eager to learn it, there will be an additonal guide for it. For now, you can ignore <strong>package.json, gulpfile.js and node_modules</strong>.</p>
+          </div>
+
+          <div class="topic">
+            <h3>Let's Check out the Files</h3>
+            <h4>index.html</h4>
+            <p>You'll notice that we added a <strong>div</strong> called <strong>auth-container</strong> that contains a button that users can click to log-in.</p>
+            <p>You'll also notice that we wrapped the "searching-part" of our app in a div with the class <strong>search-container</strong>. Looking at our CSS file will help us find out why. We'll do that now.</p>
+
+            <h4>style.css</h4>
+            <p>Not much has changed, but notice the first two selectors:</p>
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#9b703f">.search-container</span> {
+  <span style="color:#c5af75">display</span>: <span style="color:#f9ee98">none</span>;
+}
+
+<span style="color:#9b703f">.auth-container</span> {
+  <span style="color:#c5af75">display</span>: <span style="color:#f9ee98">none</span>;
+}
+</pre>
+
+            <p>By default, both the "logging-in" part of our app and the "searching" part of our app are hidden. This is because we only want to allow users to search if they're logged-in with Instagram. In other words, with our Javascript, we'll hide and show these things depending.</p>
+
+            <h4>main.js</h4>
+            <p>It's the samesies. We'll be doing all of our work here :)</p>
+          </div>
+
+          <div class="topic">
+            <h3>Our Steps</h3>
+            <p>These are the steps we need to take to accomplish goal #1:</p>
+
+            <p><strong>Step 1: Check to see if our user is logged in.</strong></p>
+            <p><strong>Step 2: Show the log-in button if they're not logged-in, show the search bar if they are.</strong></p>
+            <p><strong>Step 3: If they're not logged in, redirect them to Instagram to log-in when they click the log-in button.</strong></p>
+            <p><strong>Step 4: Slice the user's Access Token off the URL that comes back and use it to make API calls.</strong></p>
+          </div>
+
+          <div class="topic">
+            <h3>Step 1: Check to see if our user is logged in.</h3>
+
+            <p>We can do this by having our app look at the URL. If our user is logged-in, the URL will contain an Access Token. If they're not, it won't. Add the following code in <strong>main.js</strong> under our <strong>access_token</strong> variable:</p>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#e28964">if</span> (<span style="color:#9b859d">window</span>.<span style="color:#cf6a4c">location</span>.<span style="color:#cf6a4c">hash</span>) {
+  access_token <span style="color:#e28964">=</span> <span style="color:#9b859d">window</span>.<span style="color:#cf6a4c">location</span>.<span style="color:#cf6a4c">hash</span>.<span style="color:#dad085">split</span>(<span style="color:#65b042">'='</span>)[<span style="color:#3387cc">1</span>];
+}
+</pre>
+
+          <p>In english, we're checking to see if the URL has an Access Token. If it does, we're splitting if off the end and saving it our our <strong>access_token</strong> variable.</p>
+
+          <p><strong>window.location</strong> gives us the URL. <strong>window.location.hash</strong> is where the Access Token would be stored. The fancy part inside if...</p>
+
+          <pre style="background:#000;color:#f8f8f8"><span style="color:#dad085">split</span>(<span style="color:#65b042">'='</span>)[<span style="color:#3387cc">1</span>]</pre>
+
+          <p>...is just splitting the URL after the "=" giving us just our token.</p> 
+
+          <h3>Step 2: Show the log-in button if they're not logged-in, show the search bar if they are.</h3>
+
+          <p>Below the if statment you just added, add this one:</p>
+
+          <pre style="background:#000;color:#f8f8f8"><span style="color:#e28964">if</span> (<span style="color:#e28964">!</span>access_token) {
+  <span style="color:#e28964">$</span>(<span style="color:#65b042">'.auth-container'</span>).addClass(<span style="color:#65b042">'show'</span>);
+} <span style="color:#e28964">else</span> {
+  <span style="color:#e28964">$</span>(<span style="color:#65b042">'.search-container'</span>).addClass(<span style="color:#65b042">'show'</span>);
+}
+</pre>
+
+            <p>Here we're saying, "if there's no access token (the ! symbol just means 'opposite'), show the .auth-container div, otherwise, show the .search-container div."</p>
+          </div>
+
+          <div class="topic">
+            <h3>Step 3: If they're not logged in, redirect them to Instagram to log-in when they click the log-in button.</h3>
+
+            <p>Now it's time to have our user "log-in". If you remember back to part-1, we had to go to a special URL for this. We'll redirct our user to this url now. Add the following variables to the top of <strong>main.js</strong> so that our first 15 lines look like this:</p>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#99cf50">var</span> client_id <span style="color:#e28964">=</span> <span style="color:#65b042">"de353841667d47e48108c135c29beb36"</span>;
+<span style="color:#99cf50">var</span> redirect_uri <span style="color:#e28964">=</span> <span style="color:#65b042">'http://localhost:4000/'</span>;
+<span style="color:#99cf50">var</span> authURL <span style="color:#e28964">=</span> <span style="color:#65b042">'https://instagram.com/oauth/authorize/?client_id='</span> <span style="color:#e28964">+</span> client_id <span style="color:#e28964">+</span> <span style="color:#65b042">'&amp;redirect_uri='</span> <span style="color:#e28964">+</span> redirect_uri <span style="color:#e28964">+</span> <span style="color:#65b042">'&amp;response_type=token'</span>;
+<span style="color:#99cf50">var</span> tag <span style="color:#e28964">=</span> <span style="color:#65b042">"coffee"</span>;
+<span style="color:#99cf50">var</span> access_token <span style="color:#e28964">=</span> <span style="color:#3387cc">null</span>;
+
+<span style="color:#e28964">if</span> (<span style="color:#9b859d">window</span>.<span style="color:#cf6a4c">location</span>.<span style="color:#cf6a4c">hash</span>) {
+  access_token <span style="color:#e28964">=</span> <span style="color:#9b859d">window</span>.<span style="color:#cf6a4c">location</span>.<span style="color:#cf6a4c">hash</span>.<span style="color:#dad085">split</span>(<span style="color:#65b042">'='</span>)[<span style="color:#3387cc">1</span>];
+}
+
+<span style="color:#e28964">if</span> (<span style="color:#e28964">!</span>access_token) {
+  <span style="color:#e28964">$</span>(<span style="color:#65b042">'.auth-container'</span>).addClass(<span style="color:#65b042">'show'</span>);
+} <span style="color:#e28964">else</span> {
+  <span style="color:#e28964">$</span>(<span style="color:#65b042">'.search-container'</span>).addClass(<span style="color:#65b042">'show'</span>);
+}
+</pre>
+
+          <p>Basically we built a URL called <strong>authURL</strong> from our <strong>client_id</strong> and <strong>redirect_uri</strong>, just like we did in part 1. Now we'll redirect our user there when the "log-in" button is clicked. Below our "if statments" in <strong>main.js</strong>, add the following Javascript:</p>
+
+          <pre style="background:#000;color:#f8f8f8"><span style="color:#e28964">$</span>(<span style="color:#65b042">'.auth'</span>).on(<span style="color:#65b042">'click'</span>, <span style="color:#99cf50">function</span> () {
+  <span style="color:#9b859d">window</span>.<span style="color:#cf6a4c">location</span> <span style="color:#e28964">=</span> authURL;
+});
+</pre>
+            <p>This simply changes the URL (window.location) to the one we've constructed using the <strong>authURL</strong> variable.</p>
+
+          </div>
+
+          <div class="topic">
+            <h3>Step 4: Slice the user's Access Token off the URL that comes back and use it to make API calls.</h3>
+
+            <p>We've actually already accomplished this step with our "if" statments. So go ahead and open your <strong>index.html</strong> file in the browser and try logging in. Just as a gut-check, this is what your entire <strong>main.js</strong> file should look like:</p>
+
+            <div class="exercise">
+              <div class="answer">
+                <pre style="background:#000;color:#f8f8f8"><span style="color:#99cf50">var</span> client_id <span style="color:#e28964">=</span> <span style="color:#65b042">"de353841667d47e48108c135c29beb36"</span>;
+<span style="color:#99cf50">var</span> redirect_uri <span style="color:#e28964">=</span> <span style="color:#65b042">'http://localhost:4000/'</span>;
+<span style="color:#99cf50">var</span> authURL <span style="color:#e28964">=</span> <span style="color:#65b042">'https://instagram.com/oauth/authorize/?client_id='</span> <span style="color:#e28964">+</span> client_id <span style="color:#e28964">+</span> <span style="color:#65b042">'&amp;redirect_uri='</span> <span style="color:#e28964">+</span> redirect_uri <span style="color:#e28964">+</span> <span style="color:#65b042">'&amp;response_type=token'</span>;
+<span style="color:#99cf50">var</span> tag <span style="color:#e28964">=</span> <span style="color:#65b042">"coffee"</span>;
+<span style="color:#99cf50">var</span> access_token <span style="color:#e28964">=</span> <span style="color:#3387cc">null</span>;
+
+<span style="color:#e28964">if</span> (<span style="color:#9b859d">window</span>.<span style="color:#cf6a4c">location</span>.<span style="color:#cf6a4c">hash</span>) {
+  access_token <span style="color:#e28964">=</span> <span style="color:#9b859d">window</span>.<span style="color:#cf6a4c">location</span>.<span style="color:#cf6a4c">hash</span>.<span style="color:#dad085">split</span>(<span style="color:#65b042">'='</span>)[<span style="color:#3387cc">1</span>];
+}
+
+<span style="color:#e28964">if</span> (<span style="color:#e28964">!</span>access_token) {
+  <span style="color:#9b859d">$</span>('<span style="color:#9b703f">.auth-container</span>')<span style="color:#dad085">.addClass</span>(<span style="color:#65b042">'show'</span>);
+} <span style="color:#e28964">else</span> {
+  <span style="color:#9b859d">$</span>('<span style="color:#9b703f">.search-container</span>')<span style="color:#dad085">.addClass</span>(<span style="color:#65b042">'show'</span>);
+}
+
+<span style="color:#9b859d">$</span>('<span style="color:#9b703f">.auth</span>').on(<span style="color:#65b042">'click'</span>, <span style="color:#99cf50">function</span> () {
+  <span style="color:#9b859d">window</span>.<span style="color:#cf6a4c">location</span> <span style="color:#e28964">=</span> authURL;
+});
+
+<span style="color:#99cf50">var</span> <span style="color:#89bdff">fetch</span> <span style="color:#e28964">=</span> <span style="color:#99cf50">function</span> () {
+  <span style="color:#e28964">$</span><span style="color:#dad085">.ajax</span>({
+    method: <span style="color:#65b042">"GET"</span>,
+    url: <span style="color:#65b042">'https://api.instagram.com/v1/tags/'</span> <span style="color:#e28964">+</span> tag <span style="color:#e28964">+</span> <span style="color:#65b042">'/media/recent?access_token='</span> <span style="color:#e28964">+</span> access_token,
+    dataType: <span style="color:#65b042">"jsonp"</span>,
+    jsonp: <span style="color:#65b042">"callback"</span>,
+    <span style="color:#89bdff">success</span>: <span style="color:#99cf50">function</span>(response) {
+      appendPics(response);
+    },
+    <span style="color:#89bdff">error</span>: <span style="color:#99cf50">function</span>(jqXHR, textStatus, errorThrown) {
+      <span style="text-decoration:underline">console</span><span style="color:#dad085">.log</span>(textStatus);
+    }
+  }); 
+}
+
+<span style="color:#99cf50">var</span> <span style="color:#89bdff">appendPics</span> <span style="color:#e28964">=</span> <span style="color:#99cf50">function</span> (response) {
+  <span style="color:#e28964">for</span> (<span style="color:#99cf50">var</span> i <span style="color:#e28964">=</span> <span style="color:#3387cc">0</span>; i <span style="color:#e28964">&lt;</span> response.<span style="color:#cf6a4c">data</span><span style="color:#dad085">.length</span>; i <span style="color:#e28964">+</span><span style="color:#e28964">=</span> <span style="color:#3387cc">1</span>) {
+    <span style="color:#99cf50">var</span> url <span style="color:#e28964">=</span> response.<span style="color:#cf6a4c">data</span>[i].<span style="color:#cf6a4c">images</span>.low_resolution.url;
+    <span style="color:#99cf50">var</span> image <span style="color:#e28964">=</span> <span style="color:#65b042">'&lt;img class="image" src="'</span> <span style="color:#e28964">+</span> url <span style="color:#e28964">+</span> <span style="color:#65b042">'">&lt;/img'</span>;
+    <span style="color:#9b859d">$</span>('<span style="color:#9b703f">.images</span>')<span style="color:#dad085">.append</span>(image);
+  }
+}
+
+<span style="color:#9b859d">$</span>('<span style="color:#9b703f">.search</span>').on(<span style="color:#65b042">'click'</span>, <span style="color:#99cf50">function</span> (e) {
+  e.preventDefault();
+  tag <span style="color:#e28964">=</span> <span style="color:#9b859d">$</span>('<span style="color:#9b703f">.search-input</span>')<span style="color:#dad085">.val</span>();
+
+  fetch();
+});
+</pre>
+              </div>
+
+              <button class="btn btn-primary check-answer">Show main.js Code</button>
+            </div>
+          </div>
+
+          <div class="topic">
+            <h3>Step 5: Hack</h3>
+
+            <p>What happened when you click "log-in"? If you weren't logged-in, it prompted you to log-in, and either way, it redirected you back to this URL (only with your Access Token and not mine):</p>
+
+            <pre style="background:#000;color:#f8f8f8">http://localhost:4000/#access_token=7010263.de35384.024d0b727a354fb2b0ebed23fc1c7d49</pre>
+
+            <p>Instagram redirected us here with our Access Token because it thinks our app is running on "http://localhost:4000", but in fact it's running on some kind of file-path. Mine is:
+
+            <pre style="background:#000;color:#f8f8f8">file:///Users/aaronhayslip/code/coding101/searchstagram/index.html</pre>
+
+            <p>This is where my <strong>Searchstagram index.html</strong> file is located on my computer. To get back to your app your app with your access token, you'll need the filepath + your access token (complete with #access_token=), like this:</p>
+
+            <pre style="background:#000;color:#f8f8f8">file:///Users/aaronhayslip/code/amhayslip.github.io/searchstagram-3.html#access_token=7010263.de35384.024d0b727a354fb2b0ebed23fc1c7d49</pre>
+
+            <p>Now, you should be back at your app and searching for pictures like a boss! Below is a link to figure out how to launch a local server to make this log-in flow seamless.</p>
+
+
+            <h4>Done.</h4>
+
+            <p>Awesome! Take a <i class="fa fa-male"></i> <i class="fa fa-female"></i> break and drink a <i class="fa fa-beer"></i>. The <a href="local-server.html" target="_blank">next part</a> is optional advanced work that covers new topics if you're interested. Otherwise, please check out some additional resources I've put together <a href="resources/index.html" target="_blank">here</a>.
+
+
+
+
+
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+
+    <script src="main.js"></script>
+  </body>
+</html>

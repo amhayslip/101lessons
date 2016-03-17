@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="../style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <title></title>
+</head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+
+        <div class="page-header">
+          <h1>jQuery: Getting User Input Partner Project</h1>
+        </div>
+
+        <a href="jquery-part-2.html">Back to jQuery Part 2</a>
+
+         <div class="topic">
+                <h3>Guided Todo Project</h3>
+              
+                <p>Using the concepts we just covered, let's build a small app for creating a todo list. Start by <a href="https://github.com/amhayslip/jquery-todo/tree/part-1-start" target="blank"> downloading this folder</a>, opening it in sublime, and taking a look around inside.</p>
+
+                <h4>index.html</h4>
+                <p>Our HTML file is pretty normal. At the top we included Bootstrap, jQuery and our own CSS file. Notice how we're using a few Bootstrap classes, just to get our page quickly styled somewhat:</p>
+
+                <pre style="background:#000;color:#f8f8f8"> <span style="color:#89bdff">&lt;<span style="color:#89bdff">div</span> <span style="color:#89bdff">class</span>=<span style="color:#65b042">"col-md-8 col-md-offset-2"</span>></span></pre>
+
+                <p>Our content is only 8 columns wide, and is offest by 2 columns (leaveing an extra 2 at the end) so that we can have a nice, centered content area.</p>
+
+                <hr>
+
+                <h4>Adding Our Form</h4>
+
+                <p>First we need an input (usually inputs go inside forms) so the user can input a new Todo. Add the following form tag to your HTML (don't copy/paste the "page-header" part becuase it's already in the code... it's below so you know where to paste the form code):</p>
+
+                <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">div</span> <span style="color:#89bdff">class</span>=<span style="color:#65b042">"page-header"</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">h1</span>></span>Todo App<span style="color:#89bdff">&lt;/<span style="color:#89bdff">h1</span>></span>
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">div</span>></span>
+
+<span style="color:#89bdff">&lt;<span style="color:#89bdff">form</span>></span>
+ <span style="color:#89bdff">&lt;<span style="color:#89bdff">h3</span>></span>Add a new post<span style="color:#89bdff">&lt;/<span style="color:#89bdff">h3</span>></span>
+ <span style="color:#89bdff">&lt;<span style="color:#89bdff">input</span> <span style="color:#89bdff">type</span>=<span style="color:#65b042">"text"</span> <span style="color:#89bdff">class</span>=<span style="color:#65b042">"form-control todo-input"</span> <span style="color:#89bdff">placeholder</span>=<span style="color:#65b042">"Todo"</span>>&lt;/<span style="color:#89bdff">input</span>></span>
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">form</span>></span>
+</pre>
+          
+                <p>The <strong>form-control</strong> class on the input is from Bootstrap, and just adds some extra style. We'll use the <strong>todo-input</strong> class later to identify the input with our jQuery.</p>
+
+                <p>Now let's add a button so the user can actually submit the new input they type in. Make your form HTML look like the following:</p>
+
+                <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">form</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">h3</span>></span>Add a new post<span style="color:#89bdff">&lt;/<span style="color:#89bdff">h3</span>></span>
+
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">div</span> <span style="color:#89bdff">class</span>=<span style="color:#65b042">"form-group"</span>></span>
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">input</span> <span style="color:#89bdff">type</span>=<span style="color:#65b042">"text"</span> <span style="color:#89bdff">class</span>=<span style="color:#65b042">"form-control todo-input"</span> <span style="color:#89bdff">placeholder</span>=<span style="color:#65b042">"Todo"</span>>&lt;/<span style="color:#89bdff">input</span>></span>
+  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">div</span>></span>
+
+  <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">class</span>=<span style="color:#65b042">"btn btn-primary post-todo"</span>></span>Post Todo<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">form</span>></span>
+</pre>
+
+                <p>Again, <strong>btn</strong> and <strong>btn-primary</strong> are just Bootstrap classes that make our button prettier. The <strong>post-todo</strong> class will help us identify the button with jQuery in a moment. If you haven't already, open this up in the browser to see how it looks. It should look like this:</p>
+
+                <img src="http://www.elevationacademy.co/wp-content/uploads/2016/02/Screen-Shot-2016-02-02-at-2.47.16-PM.png"></img>
+
+                <div class="exercise">
+
+                  <hr>
+
+                  <i class="fa fa-refresh switch"></i>
+
+                  <h4>Listen to Clicks</h4>
+                  <p>Now in our <strong>main.js</strong>, we need to write a function that listens for clicks on our "Post Todo" button. Try it out on your own with your partner before you peek for the answer.</p>
+
+                  <div class="answer">
+                    <pre style="background:#000;color:#f8f8f8"><span style="color:#9b859d">$</span>('<span style="color:#9b703f">.post-todo</span>').on(<span style="color:#65b042">'click'</span>, <span style="color:#99cf50">function</span> () {
+        
+});
+</pre>
+                  </div>
+
+                  <button class="btn btn-primary check-answer">Check Your Answer</button>
+                </div>
+
+                <hr>
+
+                <div class="exercise">
+                  <h4>Getting the Input Value</h4>
+
+                  <p>Now we need to get the value of the Todo Input and save it a variable. Give this a try as well with your partner before peeking on the answer.</p>
+
+                  <div class="answer">
+                    <pre style="background:#000;color:#f8f8f8"><span style="color:#9b859d">$</span>('<span style="color:#9b703f">.post-todo</span>').on(<span style="color:#65b042">'click'</span>, <span style="color:#99cf50">function</span> () {
+  <span style="color:#99cf50">var</span> todo <span style="color:#e28964">=</span> <span style="color:#9b859d">$</span>('<span style="color:#9b703f">.todo-input</span>')<span style="color:#dad085">.val</span>();
+  <span style="text-decoration:underline">console</span><span style="color:#dad085">.log</span>(todo);
+});
+</pre>
+                  </div>
+
+                  <button class="btn btn-primary check-answer">Check Your Answer</button>
+                </div>
+
+                <hr>
+
+                <div class="exercise">
+                  <h4>Displaying Our Todo's</h4>
+
+                  <p>Finally, now we need a place to actually display our todo's. Add the following HTML to your page between your <strong>page-header</strong> and <strong>form</strong>:</p>
+
+                  <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">ul</span> <span style="color:#89bdff">class</span>=<span style="color:#65b042">"todo-list"</span>></span>
+  <span style="color:#e0c589">&lt;<span style="color:#e0c589">li</span>></span>Do some stuff!<span style="color:#e0c589">&lt;/<span style="color:#e0c589">li</span>></span>
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">ul</span>></span>
+</pre>
+
+                  <p>Once again, with your partner, see if you can figure out the necessary jQuery to actually append the value of the input to the "todo-list" on the page before peeking at the answer. Don't spend too much time on this, as there's a catch.</p>
+
+                  <div class="answer">
+                    <pre style="background:#000;color:#f8f8f8"><span style="color:#9b859d">$</span>('<span style="color:#9b703f">.post-todo</span>').on(<span style="color:#65b042">'click'</span>, <span style="color:#99cf50">function</span> (e) {
+  e.preventDefault(); 
+  <span style="color:#99cf50">var</span> todo <span style="color:#e28964">=</span> <span style="color:#9b859d">$</span>('<span style="color:#9b703f">.todo-input</span>')<span style="color:#dad085">.val</span>();
+  <span style="color:#9b859d">$</span>('<span style="color:#9b703f">.todo-list</span>')<span style="color:#dad085">.append</span>(<span style="color:#65b042">'&lt;li>'</span> <span style="color:#e28964">+</span> todo <span style="color:#e28964">+</span> <span style="color:#65b042">'&lt;/li>'</span>);
+});
+</pre>
+                  </div>
+
+                  <button class="btn btn-primary check-answer">Check Your Answer</button>
+                  <p></p>
+                <p>This last one takes some explanation, starting with the <a href="https://api.jquery.com/event.preventdefault/" target="blank"> <strong>e.preventDefault()</strong> </a>. This is more of a quirk than anything else. Some DOM nodes (HTML elements) have default events attached to them. The <strong>button</strong> element is one of those. By default, it wants to submit a form. By passing in the <strong>e</strong> argmument (stands for event) and calling <strong>preventDefault()</strong> on it, we can prevent it from it's default behavior and make it do what we want it to do.</p>
+
+                <p>Lastly, notice our <strong>append.()</strong> method. It accepts a string as an argument. We can give it an HTML string with our variable interpolated and it will append a new HTML li element to our ul element.</p>
+                </div>
+              </div>
+
+              <hr>
+
+            <h4>Done</h4>
+
+            <p>Awesome! Be sure to ask any question's you might have about the above material. Take a <i class="fa fa-male"></i> <i class="fa fa-female"></i> break, drink a <i class="fa fa-beer"></i>, then get started on the individual project <a href="jquery-input-individual-project.html">here</a>.
+
+ 
+
+        </div>
+      </div>
+    </div>
+    <script src="../main.js"></script>
+  </body>
+ 
+</html>
+
+
+
+
+

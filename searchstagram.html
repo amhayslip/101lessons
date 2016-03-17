@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <title></title>
+</head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+
+          <div class="page-header">
+            <h1>Searchstagram! Part 1</h1>
+          </div>
+
+          <a href="index.html">Back to Home</a>
+
+          <div class="topic">
+            <h3>Intro</h3>
+
+            <p>On this last night of Coding 101, we will be doing something fun. We'll be using the Instagram API to create an app that searches for images based on user inputted hashtags. As a disclaimer, you're not expected to know how to use API's before this lesson and there will be some new concepts in here, but you already know the basics of 90% of this app. With practice and patience, you'll be able to build things like this on your own in no time!</p>
+          </div>
+
+          <div class="topic">
+            <h3>Setup</h3>
+
+            <p>Head <a href="https://github.com/amhayslip/searchstagram/tree/master" target="_blank">here</a> to download the project folder and open it in sublime. As usual, let's look at each file.</p>
+
+            <h4>index.html</h4>
+
+            <p>At the top we've included Bootstrap, FontAwesome (for cool icons later) and our own stylesheet (which has some cool styles for us already).</p>
+
+            <p>At the bottom you'll notice jQuery, Handlebars (a new one we'll talk about in a bit) and our own <strong>main.js</strong> file.
+
+            <h4>main.js</h4>
+            <p>Empty! We'll fill it up, don't worry ;)</p>
+          </div>
+
+          <div class="topic">
+            <h3>Authentication</h3>
+            <p>Our goal is to send a request to Instagram based on a user's search for hashtags and to have Instagram respond with pictures. However, to do this we have to log-in to Instagram inside of our app, or be "authenticated" so they know who is making the requests. We can figure out how to that by reading <a href="https://www.instagram.com/developer/authentication/" target="_blank">Instagram's doc's here</a>. Scroll down to where it says <strong>Client-Side (Implicit) Authentication</strong>. This is what we want because we don't have a back-end, just a front-end (client-side app). Let's break it down into steps:</p>
+
+            <h4>Step 1: Register our App and get a Client ID and Redirect URI</h4>
+            <p>Things might start to sound scary... like what the hell is a client-id? It's just a fancy way that Instagram give's each app that uses their API an id. Normally you would <a href="https://www.instagram.com/developer/clients/manage/" target="_blank">head here</a> to create one, but you can just use my Client ID. We'll need it in a minute:</p>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#65b042">de353841667d47e48108c135c29beb36</span></pre>
+
+            <p>When we register our new app with Instagram, they give us our Client ID and we tell give them a Redirect URI. Normally this is our website's URL that our user will be redirected back to after they log-in to Instagram. Since we're working locally (we don't have a live website), we'll use this one in a moment:</p>
+
+            <pre style="background:#000;color:#f8f8f8">http:<span style="color:#aeaeae;font-style:italic">//localhost:4000/</span></pre>
+
+            <h4>Step 2: Retrieve our Access Token</h4>
+            <p>Now, we'll use our Client ID and Redirect URI to get an Access Token from Instagram. An Access Token is a unique signature that every user recieves from Instagram to make requests to their API. Without the Access Token, Instagram won't let you use their API because they don't know who is making the request. To get our access token, we'll use this URL:</p>
+
+            <pre style="background:#000;color:#f8f8f8">https:<span style="color:#aeaeae;font-style:italic">//instagram.com/oauth/authorize/?client_id=CLIENT-ID&amp;redirect_uri=REDIRECT-URI&amp;response_type=token</span></pre>
+
+            <p>Now if we fill in the URL with our Client ID and Redirect URI, it looks like this:</p>
+
+            <pre style="background:#000;color:#f8f8f8">https:<span style="color:#aeaeae;font-style:italic">//www.instagram.com/oauth/authorize/?client_id=de353841667d47e48108c135c29beb36&amp;redirect_uri=http://localhost:4000/&amp;response_type=token</span></pre>
+
+            <p>Go ahead and copy/paste that last URL into your browser. If you're not already logged-in to Instagram, it will prompt you to. Log-in and it should take you to a blank screen, but with an access token in your URL now, like this:</p>
+
+            <img src="http://www.elevationacademy.co/wp-content/uploads/2016/02/Screen-Shot-2016-02-09-at-10.54.44-AM.png"></img>
+
+            <p>This is how Instagram gives each user their Access Token: through the URL. Normally inside of our app we could retrieve the URL and cut the Acceses Token off the end of the URL. For now, we'll do that manually. Copy your Access Token (the long string of numbers and letters on the end of the URL) and paste it as a string assigned to the variable <strong>access_token</strong> inside of or <strong>main.js</strong> file like this (use your own Access Token, not mine below):</p>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#99cf50">var</span> access_token <span style="color:#e28964">=</span> <span style="color:#65b042">"7010263.de35384.024d0b727a354fb2b0ebed23fc1c7d49"</span>;</pre>
+
+            <h4>Step 3: Making Requests!</h4>
+
+            <p>Now that we have an Access Token, we're ready to make requests to Instagram for images! If you <a href="https://www.instagram.com/developer/endpoints/">go here</a>, you can see all the things we can request from Instagram. Remember, we want to request images based on hashtags. For that we'll use this URL:</p>
+
+            <pre style="background:#000;color:#f8f8f8">https:<span style="color:#aeaeae;font-style:italic">//api.instagram.com/v1/tags/{tag-name}/media/recent?access_token=ACCESS-TOKEN</span></pre>
+
+            <p>Go ahead and copy/paste the above URL into your browser. Instead of <strong>{tag-name}</strong>, use a hashtag (without the <strong>#</strong>) and instead of <strong>ACCESS-TOKEN</strong>, paste the access token you saved earlier. Your screen should now be filled with TONS of data. That is JSON (Javascript Object Notation). It's basically a series of objects and arrays. If you look carefully, you can find the pictures. Now let's get this into our webpage so we can actually make sense of it!</p>
+          </div>
+
+          <div class="topic">
+            <h3>AJAX</h3>
+
+            <p>Now we want to reproduce the process we just went through, but inside of our app. To make our requests (go to the URL's we just went to), we'll use AJAX. AJAX stands for Asyncronous Javascript and XML and it's a way that we can request data from API's inside of our app. Copy and paste the following inside of your <strong>main.js</strong>:</p>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#99cf50">var</span> tag <span style="color:#e28964">=</span> <span style="color:#65b042">"thebubbub"</span>;
+<span style="color:#99cf50">var</span> access_token <span style="color:#e28964">=</span> <span style="color:#65b042">"7010263.de35384.024d0b727a354fb2b0ebed23fc1c7d49"</span>;
+
+<span style="color:#99cf50">var</span> <span style="color:#89bdff">fetch</span> <span style="color:#e28964">=</span> <span style="color:#99cf50">function</span> () {
+  <span style="color:#e28964">$</span><span style="color:#dad085">.ajax</span>({
+    method: <span style="color:#65b042">"GET"</span>,
+    url: <span style="color:#65b042">'https://api.instagram.com/v1/tags/'</span> <span style="color:#e28964">+</span> tag <span style="color:#e28964">+</span> <span style="color:#65b042">'/media/recent?access_token='</span> <span style="color:#e28964">+</span> access_token,
+    dataType: <span style="color:#65b042">"jsonp"</span>,
+    jsonp: <span style="color:#65b042">"callback"</span>,
+    <span style="color:#89bdff">success</span>: <span style="color:#99cf50">function</span>(response) {
+      <span style="color:#e28964">debugger</span>;
+    },
+    <span style="color:#89bdff">error</span>: <span style="color:#99cf50">function</span>(jqXHR, textStatus, errorThrown) {
+      <span style="text-decoration:underline">console</span><span style="color:#dad085">.log</span>(textStatus);
+    }
+  }); 
+}
+
+fetch();
+</pre>
+
+          <p>Woah, what the hell!? Before you get overwhelmed, AJAX is just a jQuery method that takes an object as an argument. We wrapped it in a functon called "fetch". You'll notice that it takes an argument called "URL" which is our Instagram API request. We're interpolating the "tag" we're searching for and our "Access Token".</p>
+
+          <p>Lastly, there are two methods: <strong>success</strong> and <strong>error</strong>. If the request is successful, the <strong>success</strong> function will be called with the data back from Instagram. If it is not, the <strong>error</strong> function will be called.</p> 
+
+          <p>Go ahead and replace the <strong>tag</strong> variable with whatever tag you want to search for, and replace the access token with your own. Then, open it in your browser. Since we have a <strong>debugger</strong> in the success function, it will pause there.</p>
+        </div>
+
+        <div class="topic">
+          <h3>Parsing Our Response</h3>
+
+          <p>Open your Chrome Dev Tools with your <strong>index.html</strong> open in your browser. With the debugger paused inside the success function, type this into the console:</p>
+
+          <pre style="background:#000;color:#f8f8f8">response.<span style="color:#cf6a4c">data</span>[<span style="color:#3387cc">0</span>].<span style="color:#cf6a4c">images</span>.low_resolution.url</pre>
+
+          <p>When you do, you will see a link come up that links to an Instagram picture!</p> 
+
+          <p>Let's back up and break that down to see how Instagram structures it's responses. Just type in:</p>
+
+          <pre style="background:#000;color:#f8f8f8">response</pre>
+
+          <p>You will see this:</p>
+
+          <pre style="background:#000;color:#f8f8f8"><span style="color:#9b859d">Object</span> {pagination: <span style="color:#9b859d">Object</span>, meta: <span style="color:#9b859d">Object</span>, data: <span style="color:#9b859d">Array</span>[<span style="color:#3387cc">20</span>]}</pre>
+
+          <p>Basically the reponse that Instagram gave us is an object with 3 properties: "pagination", "meta" and "data". For our purposes, the only one that is important, is "data". Now type in:</p> 
+
+          <pre style="background:#000;color:#f8f8f8">response.<span style="color:#cf6a4c">data</span></pre>
+
+          <p>You will see something like this:</p>
+
+          <pre style="background:#000;color:#f8f8f8">[<span style="color:#9b859d">Object</span>, <span style="color:#9b859d">Object</span>, <span style="color:#9b859d">Object</span>, <span style="color:#9b859d">Object</span>, <span style="color:#9b859d">Object</span>, <span style="color:#9b859d">Object</span>, <span style="color:#9b859d">Object</span>, <span style="color:#9b859d">Object</span>, <span style="color:#9b859d">Object</span>, <span style="color:#9b859d">Object</span>, <span style="color:#9b859d">Object</span>, <span style="color:#9b859d">Object</span>, <span style="color:#9b859d">Object</span>, <span style="color:#9b859d">Object</span>, <span style="color:#9b859d">Object</span>, <span style="color:#9b859d">Object</span>, <span style="color:#9b859d">Object</span>, <span style="color:#9b859d">Object</span>, <span style="color:#9b859d">Object</span>, <span style="color:#9b859d">Object</span>]</pre>
+
+          <p>Basically the value of the "data" attribute is an array of objects. Each one of those objects represents an Instagram post. Let's dive into the first one by typing this:</p>
+
+          <pre style="background:#000;color:#f8f8f8">response.<span style="color:#cf6a4c">data</span>[<span style="color:#3387cc">0</span>]</pre>
+
+          <p>You will see an object with MANY properties. This is all the information on the Instagram post. Things like "comments", "likes" and more. What we want, is the images property. Now type in the following:</p>
+
+          <pre style="background:#000;color:#f8f8f8">response.<span style="color:#cf6a4c">data</span>[<span style="color:#3387cc">0</span>].<span style="color:#cf6a4c">images</span></pre>
+
+          <p>You will see something like this:</p>
+
+          <pre style="background:#000;color:#f8f8f8">{low_resolution: <span style="color:#9b859d">Object</span>, thumbnail: <span style="color:#9b859d">Object</span>, standard_resolution: <span style="color:#9b859d">Object</span>}</pre>
+
+          <p>As we can see, the value of <strong>images</strong> is another object. It has 3 properites. The value of each of these properites represents an image a different resoluton. Now type:</p>
+
+          <pre style="background:#000;color:#f8f8f8">response.<span style="color:#cf6a4c">data</span>[<span style="color:#3387cc">0</span>].<span style="color:#cf6a4c">images</span>.low_resolution</pre>
+
+          <p>In reponse we see another object with 3 properties: width, height and url. The url is what we want! In Part 2 of this project, we'll put this into our app and put the url into an image tag enabling us to display all the images on our site. For now, try the following:</p>
+        </div>
+
+        <div class="exercise">
+
+          <h3>Exercise</h3>
+
+          <p>Inside of our "success" function, write a for loop that console.log's all of the low_resolution images.</p>
+
+          <div class="answer">
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#e28964">for</span> (i <span style="color:#e28964">=</span> <span style="color:#3387cc">0</span>; i <span style="color:#e28964">&lt;</span> response.<span style="color:#cf6a4c">data</span>.<span style="color:#cf6a4c">length</span>; i <span style="color:#e28964">+</span><span style="color:#e28964">=</span> <span style="color:#3387cc">1</span>) {
+  <span style="text-decoration:underline">console</span><span style="color:#dad085">.log</span>(response.<span style="color:#cf6a4c">data</span>[i].<span style="color:#cf6a4c">images</span>.low_resolution.url);
+}
+</pre>
+          </div>
+
+          <button class="btn btn-primary check-answer">Check Your Answer</button>
+
+        </div>
+
+        <div class="exercise">
+          <h3>Challenge (Optional... for the daring!)</h3>
+
+          <p>Create a search input where users can search by hashtags and a button where users can submit their searches. When they submit their searches, call the "fetch" function and append the new images to the page.</p>
+
+          <div class="answer">
+            <p>That's why we have a part 2 silly!</p>
+          </div>
+
+          <button class="btn btn-primary check-answer">Check Your Answer</button>
+        </div>
+
+        <h4>Done</h4>
+
+        <p>Awesome! Take a <i class="fa fa-male"></i> <i class="fa fa-female"></i> break, drink a <i class="fa fa-beer"></i>, then get started on Part 2 <a href="searchstagram-2.html">here</a>.
+
+          
+
+        </div>
+      </div>
+    </div>
+
+    <script src="main.js"></script>
+  </body>
+</html>

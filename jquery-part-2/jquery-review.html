@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="../style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <title></title>
+</head>
+  <body>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+
+          <div class="page-header">
+            <h1>jQuery Review</h1>
+          </div>
+
+          <a href="jquery-part-2.html">Back to jQuery Part 2</a>
+
+          <div class="topic">
+            <h3>Set Up</h3>
+        
+            <p>Tonight we're going to continue forward in the wild world of jQuery. First, we'll review the previous concepts and practice with some exercises. Before we get to that though, let's pair-up. Pick the first driver and navigator and who's computer you'll use throughout. When you see this icon:</p>
+
+            <i class="fa fa-refresh switch"></i>
+
+            <p>Switch driver and navigator roles!</p>
+
+            <p>To add jQuery use this script tag</p>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#e28964">&lt;</span>script src<span style="color:#e28964">=</span><span style="color:#65b042">"https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"</span><span style="color:#e28964">></span><span style="color:#e28964">&lt;</span>/script<span style="color:#e28964">></span>
+</pre>
+
+          </div>
+
+           <hr>
+
+          <div class="topic">
+            <h3>jQuery Selecting</h3>
+          
+            <p>If you remember back to last time, jQuery is responsible for manipulating DOM (HTML) Elements. To do this we have to first select the selements we want to manipulate. Here is an example of selecting a generic div with jQuery:</p>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">div</span>></span>This is a div!<span style="color:#89bdff">&lt;/<span style="color:#89bdff">div</span>></span>
+</pre>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#9b859d">$</span>('<span style="color:#cda869">div</span>')
+</pre>
+
+            <p>Practice this with your partner by following the exercises below. Open up the text editor of your choice to write your answers (sublime or codepen). Check them by clicking, "Check Your Answer". You don't need to write the HTML, just the necessary Javascript/jQuery. AND DONT PEEK!</p>
+          </div>
+
+
+          <div class="exercise">
+            <h4>Selecting Exercise 1</h4>
+
+            <p>How would you select the following HTML element using a class selector?</p>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">p</span> <span style="color:#89bdff">class</span>=<span style="color:#65b042">"first-sentence"</span>></span><span style="color:#89bdff">&lt;<span style="color:#89bdff">p</span>></span>
+</pre>
+
+            <div class="answer">
+              <pre style="background:#000;color:#f8f8f8"><span style="color:#e28964">$</span>(<span style="color:#65b042">'.first-sentence'</span>)
+</pre>
+            </div>
+
+            <button class="btn btn-primary check-answer">Check Your Answer</button>
+          </div>
+
+          <div class="exercise">
+            <h4>Selecting Exercise 2</h4>
+
+            <p>How would you select the following HTML element using an id selector?</p>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">input</span> <span style="color:#89bdff">id</span>=<span style="color:#65b042">"user-id"</span>>&lt;/<span style="color:#89bdff">input</span>></span>
+</pre>
+
+            <div class="answer">
+              <pre style="background:#000;color:#f8f8f8"><span style="color:#9b859d">$</span>('<span style="color:#8b98ab">#user-id</span>')
+</pre>
+            </div>
+
+            <button class="btn btn-primary check-answer">Check Your Answer</button>
+          </div>
+
+          <div class="exercise">
+            <h4>Selecting Exercise 3</h4>
+
+            <p>How would you select the second li element using a psuedo selector?</p>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">ul</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">li</span>>&lt;/<span style="color:#89bdff">li</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">li</span>>&lt;/<span style="color:#89bdff">li</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">li</span>>&lt;/<span style="color:#89bdff">li</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">li</span>>&lt;/<span style="color:#89bdff">li</span>></span>
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">ul</span>></span>
+
+</pre>
+
+            <div class="answer">
+              <pre style="background:#000;color:#f8f8f8"><span style="color:#9b859d">$</span>('<span style="color:#cda869">li</span>:nth-child(2)')
+</pre>
+            </div>
+
+            <button class="btn btn-primary check-answer">Check Your Answer</button>
+          </div>
+
+          <hr>
+
+          <div class="topic">
+            <h3>Event Listeners</h3>
+
+            <i class="fa fa-refresh switch"></i>
+          
+            <p>Also from last time, Event Listens are methods that listen for events, such as clicks! Below is an example of a button listening for click events using the <strong>.on</strong> method:</p>
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#9b859d">$</span>('<span style="color:#cda869">button</span>').on(<span style="color:#65b042">'click'</span>, <span style="color:#99cf50">function</span> () {
+  <span style="color:#aeaeae;font-style:italic">//empty function body</span>
+});
+</pre>
+
+            <p>Let's break it down a bit. First we're selecting the <strong>button</strong> element like this:</p>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#9b859d">$</span>('<span style="color:#cda869">button</span>')</pre>
+
+            <p>If you remember back to last time, selecting it with jQuery means now it has a bunch of methods available for it to use (a method is an object property that's value is a function). One of those methods is the <strong>on</strong> method. You can imagine it looking like this:</p>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#99cf50">var</span> <span style="color:#e28964">$</span>(<span style="color:#65b042">'button'</span>) <span style="color:#e28964">=</span> {
+  <span style="color:#89bdff">on</span>: <span style="color:#99cf50">function</span> () {
+    <span style="color:#aeaeae;font-style:italic">//does some stuff</span>
+  }
+}
+</pre>
+
+            <p>In the example above, how would we access the <strong>on</strong> property of the <strong>$('button')</strong> object?</p>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#e28964">$</span>(<span style="color:#65b042">'button'</span>).on</pre>
+
+            <p>Cool. Now how would we call (invoke) the <strong>on</strong> function?</p>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#e28964">$</span>(<span style="color:#65b042">'button'</span>).on()</pre>
+
+            <p>Awesome. Because we're smart and we read the jQuery documentation on their website, we know that the <strong>on</strong> method takes two arguments: an event, and a function.</p>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#e28964">$</span>(<span style="color:#65b042">'button'</span>).on(<span style="color:#9b859d">event</span>, <span style="color:#99cf50">function</span>)</pre>
+
+            <p>We can find a list of events on the jQuery website, but we know that a common one is the <strong>click</strong> event. We pass it in as a string:</p>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#e28964">$</span>(<span style="color:#65b042">'button'</span>).on(<span style="color:#65b042">'click'</span>, <span style="color:#99cf50">function</span>)</pre>
+
+            <p>Now for the function. Usually, when we see functions, we see them defined with a variable and they have a name. Like this:</p>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#99cf50">var</span> <span style="color:#89bdff">greet</span> <span style="color:#e28964">=</span> <span style="color:#99cf50">function</span> () {}</pre>
+
+            <p>Usually we asign functions to variables (like the one above) so that we have a way to reference it later and "call it" (invoke it), like this:</p>
+
+            <pre style="background:#000;color:#f8f8f8">greet();</pre>
+
+            <p>However, with the function that we're passing to <strong>.on()</strong> as it's second argument, we don't need to give it a variable. Our <strong>.on()</strong> method know's how to reference it becuase it has it as an argument.</p> 
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#9b859d">$</span>('<span style="color:#cda869">button</span>').on(<span style="color:#65b042">'click'</span>, <span style="color:#99cf50">function</span> () {});
+</pre>
+
+            <p>We call this an <strong>anonymous function</strong>, because it has no name. Also, it's an example of a <strong>callback function</strong> because we're not calling it directly, but we're calling a function that call's it (the <strong>.on</strong> function calls it, not the <strong>$('button')</strong> object).</p>
+
+            <p>Enough jibber-jabber. Let's practice with some exercises below. Do this in either a new pen or in a Javascript file in Sublime. Think of this as "handwriting" practice. Do your best to not peek at the answers until you've tried your best to figure it out with your partner.</p>
+
+
+
+          </div>
+
+          <hr>
+
+          <div class="exercise">
+            <h4>Event Listener Exercise 1</h4>
+
+            <p>Write some jQuery that listens for clicks on this button, and alerts "clicked!"</p>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span>></span>Click Me!<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
+</pre>
+
+            <div class="answer">
+              <pre style="background:#000;color:#f8f8f8"><span style="color:#9b859d">$</span>('<span style="color:#cda869">button</span>').on(<span style="color:#65b042">'click'</span>, <span style="color:#99cf50">function</span> () {
+  <span style="color:#dad085">alert</span>(<span style="color:#65b042">'clicked!'</span>);
+});
+</pre>
+            </div>
+
+            <button class="btn btn-primary check-answer">Check Your Answer</button>
+          </div>
+
+
+
+          <div class="exercise">
+            <h4>Event Listener Exercise 2</h4>
+
+            <p>Write some jQuery that increments the 'counter' variable below by one, each time the button below is clicked.</p>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">class</span>=<span style="color:#65b042">"add"</span>></span>Click to Add<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
+</pre>
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#99cf50">var</span> counter <span style="color:#e28964">=</span> <span style="color:#3387cc">0</span>;
+</pre>
+
+            <div class="answer">
+              <pre style="background:#000;color:#f8f8f8"><span style="color:#9b859d">$</span>('<span style="color:#9b703f">.add</span>').on(<span style="color:#65b042">'click'</span>, <span style="color:#99cf50">function</span> () {
+  counter <span style="color:#e28964">+</span><span style="color:#e28964">=</span> <span style="color:#3387cc">1</span>;
+});
+</pre>
+            </div>
+
+            <button class="btn btn-primary check-answer">Check Your Answer</button>
+          </div>
+
+          <div class="exercise">
+            <h4>Event Listener Exercise 3</h4>
+
+            <p>Write some jQuery that listens for hover events on this link, and alerts "hovered!"</p>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">a</span> <span style="color:#e0c589">href</span>=<span style="color:#65b042">"#index.html"</span>></span>Click Here<span style="color:#e0c589">&lt;/<span style="color:#e0c589">a</span>></span>
+</pre>
+
+            <div class="answer">
+              <pre style="background:#000;color:#f8f8f8"><span style="color:#9b859d">$</span>('<span style="color:#cda869">a</span>')<span style="color:#dad085">.hover</span>(<span style="color:#99cf50">function</span> () {
+  <span style="color:#dad085">alert</span>(<span style="color:#65b042">'hovered!'</span>);
+});
+</pre>
+            </div>
+
+            <button class="btn btn-primary check-answer">Check Your Answer</button>
+          </div>
+
+          <hr>
+
+          <div class="topic">
+            <h3>The keyword <i>this</i></h3>
+
+            <i class="fa fa-refresh switch"></i>
+          
+            <p>In the past, we've lightly covered the keyword <strong>this</strong> in javascript, but let's review. The keyword <strong>this</strong> is always used inside of a function and always refers to whatever called the function. For example:</p>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#99cf50">var</span> car <span style="color:#e28964">=</span> {
+  position: <span style="color:#3387cc">0</span>,
+  <span style="color:#89bdff">go</span>: <span style="color:#99cf50">function</span> () {
+    <span style="color:#3e87e3">this</span>.position <span style="color:#e28964">+</span><span style="color:#e28964">=</span> <span style="color:#3387cc">1</span>
+  }
+}
+
+car.<span style="color:#dad085">go</span>();
+</pre>
+
+            <p>Above we have an object called <strong>car</strong> with two properites: <strong>position</strong> and <strong>go</strong>. The value of <strong>go</strong> is a function that changes the <strong>car</strong>'s position. Inside that function, <strong>this</strong> is referring to the <strong>car</strong> object. Copy and paste the code into your Chrome Developer Console if you need to see it in action to understand what <strong>this</strong> is doing. </p>
+
+            <p>Let's now look at an example using jQuery
+      
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#9b859d">$</span>('<span style="color:#cda869">button</span>').on(<span style="color:#65b042">'click'</span>, <span style="color:#99cf50">function</span> () {
+  <span style="color:#9b859d">$</span>(<span style="color:#3e87e3">this</span>)<span style="color:#dad085">.css</span>(<span style="color:#65b042">'color'</span>, <span style="color:#65b042">'red'</span>);
+});
+</pre>
+            <p>Above, we wrapped <strong>this</strong> inside a jQuery selector to make it <strong>$(this)</strong>. Since the button element called the function, <strong>$(this)</strong> refers to the button itself. Therefore, this function turns the button red.</p>
+
+            <p>Let's try a couple of exercises to solidify this a bit:</p>
+
+          </div>
+
+
+          <div class="exercise">
+            <h4>  <i>this</i> Exercise 1</h4>
+
+            <p>Write some jQuery that listens for a mouseover event on this div, and changes it's color to red.</p>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">div</span> <span style="color:#89bdff">class</span>=<span style="color:#65b042">"content"</span>></span>
+  This is an awesome div with awesome content. I wish I was red though.
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">div</span>></span>
+</pre>
+
+            <div class="answer">
+              <pre style="background:#000;color:#f8f8f8"><span style="color:#9b859d">$</span>('<span style="color:#9b703f">.content</span>').on(<span style="color:#65b042">'mouseover'</span>, <span style="color:#99cf50">function</span> () {
+  <span style="color:#9b859d">$</span>(<span style="color:#3e87e3">this</span>)<span style="color:#dad085">.css</span>(<span style="color:#65b042">'background-color'</span>, <span style="color:#65b042">'red'</span>);
+});
+
+<span style="color:#aeaeae;font-style:italic">//or</span>
+
+<span style="color:#9b859d">$</span>('<span style="color:#9b703f">.content</span>')<span style="color:#dad085">.mouseover</span>(<span style="color:#99cf50">function</span> () {
+  <span style="color:#9b859d">$</span>(<span style="color:#3e87e3">this</span>)<span style="color:#dad085">.css</span>(<span style="color:#65b042">'background-color'</span>, <span style="color:#65b042">'red'</span>);
+});
+
+</pre>
+            </div>
+
+            <button class="btn btn-primary check-answer">Check Your Answer</button>
+          </div>
+
+          <div class="exercise">
+            <h4>  <i>this</i> Exercise 2</h4>
+
+            <p>Write some jQuery that listens for a click event on this button, and changes it's text to "already clicked". Hint: you will need to call <strong>.html('already clicked')</strong> on the button.</p>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span>></span>Never Been Clicked<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
+</pre>
+
+            <div class="answer">
+              <pre style="background:#000;color:#f8f8f8"><span style="color:#9b859d">$</span>('<span style="color:#9b703f">button</span>').on(<span style="color:#65b042">'click'</span>, <span style="color:#99cf50">function</span> () {
+  <span style="color:#9b859d">$</span>(<span style="color:#3e87e3">this</span>)<span style="color:#dad085">.html</span>(<span style="color:#65b042">'already clicked'</span>);
+});
+</pre>
+            </div>
+
+            <button class="btn btn-primary check-answer">Check Your Answer</button>
+          </div>
+
+          <hr>
+
+          <div class="topic">
+            <h3>Answers to Sunday's Exercises</h3>
+          
+            <i class="fa fa-refresh switch"></i>
+            <p>Review the following exercises and answers with your partner. Help one another understand what's going on in each example.</p>
+          </div>
+
+          <div class="exercise">
+            <h4>Exercise #2 from Intro to jQuery</h4>
+
+            <p>Download <a href="https://github.com/amhayslip/jquery-intro/tree/canvas">this folder</a> and open it in sublime. Notice in our <strong>index.html</strong> that we've included jQuery through a script tag (in a similar way that we included Bootstrap) that's hosted somewhere else. Also, notice that we included <strong>main.js</strong> below our HTML. This is so that our jQuery will be aware of our HTML.<p>
+
+            <p>Now in <strong>main.js</strong>, create a "click handler" that listens for clicks on the button and increments (increases) the counter variable by 1 on each click in it's callback function. Also in the callback function, update the <strong>span</strong> tag in the HTML to display the correct number. The <a href="http://api.jquery.com/html/">.html()</a> jQuery method works well for this.</p>
+
+            <div class="answer">
+              <pre style="background:#000;color:#f8f8f8"><span style="color:#99cf50">var</span> counter <span style="color:#e28964">=</span> <span style="color:#3387cc">0</span>;
+
+<span style="color:#9b859d">$</span>('<span style="color:#9b703f">button</span>').on(<span style="color:#65b042">'click'</span>, <span style="color:#99cf50">function</span> () {
+  counter <span style="color:#e28964">+</span><span style="color:#e28964">=</span> <span style="color:#3387cc">1</span>;
+  <span style="color:#9b859d">$</span>('<span style="color:#cda869">span</span>')<span style="color:#dad085">.html</span>(counter);
+});
+</pre>
+            </div>
+
+            <button class="btn btn-primary check-answer">Check Your Answer</button>
+          </div>
+
+          <div class="exercise">
+            <h4>Exercise #3 from Intro to jQuery</h4>
+
+            <p>Download <a href="https://github.com/amhayslip/jquery-intro/tree/canvas">this folder</a> and open it in sublime. Remember Microsoft Paint? We’re going to be creating something just like it! First, we need a canvas. Add the following code to the top of <strong>main.js</strong>:<p>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#e28964">for</span> (i <span style="color:#e28964">=</span> <span style="color:#3387cc">0</span>; i <span style="color:#e28964">&lt;</span> <span style="color:#3387cc">5500</span>; i <span style="color:#e28964">+</span><span style="color:#e28964">=</span> <span style="color:#3387cc">1</span>) {
+  <span style="color:#9b859d">$</span>('<span style="color:#9b703f">.canvas</span>')<span style="color:#dad085">.append</span>(<span style="color:#65b042">'&lt;div class="square">&lt;/div>'</span>)
+}
+</pre>
+
+            <p>What did this code do? Look at your browser and your <strong>style.css</strong> file to figure it out. Now, we want to change the color of each "square" div as we "mouse over" it. For this, we will need to use the <strong>.on</strong> method and the <strong>mouseenter</strong> event. Additionally, inside of our callback function we can refer to the "div" that was just moused over using  </strong>$(this)</strong>.</p>
+
+            <div class="answer">
+              <pre style="background:#000;color:#f8f8f8"><span style="color:#9b859d">$</span>('<span style="color:#9b703f">.square</span>').on(<span style="color:#65b042">'mouseenter'</span>, <span style="color:#99cf50">function</span> () {
+  <span style="color:#9b859d">$</span>(<span style="color:#3e87e3">this</span>)<span style="color:#dad085">.css</span>(<span style="color:#65b042">'background-color'</span>, <span style="color:#65b042">'yellow'</span>);
+});
+</pre>
+            </div>
+
+            <button class="btn btn-primary check-answer">Check Your Answer</button>
+
+            <hr>
+
+            <h4>Done</h4>
+
+            <p>Awesome! Be sure to ask any question's you might have about the above material. Take a <i class="fa fa-male"></i> <i class="fa fa-female"></i> break, drink a <i class="fa fa-beer"></i>, then get started on the next section <a href="jquery-input.html">here</a>.
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="../main.js"></script>
+  </body>
+</html>

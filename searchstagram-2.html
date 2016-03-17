@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <title></title>
+</head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+
+          <div class="page-header">
+            <h1>Searchstagram! Part 2</h1>
+          </div>
+
+          <a href="index.html">Back to Home</a>
+
+          <div class="topic">
+            <h3>Intro</h3>
+
+            <p>In the last exercise of part 1 it said to, "Create a search input where users can search by hashtags and a button where users can submit their searches. When they submit their searches, call the "fetch" function and append the new images to the page."</p>
+
+            <p>That's exactly what we'll do now. Make sure you have your <strong>Searchstagram</strong> folder still open.</p>
+          </div>
+
+          <div class="topic">
+            <h3>Getting User Input</h3>
+
+            <p>Add a form to your page by changing the HTML inside of your body tag to look like this:</p>
+
+            <pre style="background:#000;color:#f8f8f8">  <span style="color:#89bdff">&lt;<span style="color:#89bdff">div</span> <span style="color:#89bdff">class</span>=<span style="color:#65b042">"container"</span>></span>
+
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">div</span> <span style="color:#89bdff">class</span>=<span style="color:#65b042">"row"</span>></span>
+      <span style="color:#89bdff">&lt;<span style="color:#89bdff">div</span> <span style="color:#89bdff">class</span>=<span style="color:#65b042">"col-md-6 col-md-offset-3"</span>></span>
+
+        <span style="color:#89bdff">&lt;<span style="color:#89bdff">div</span> <span style="color:#89bdff">class</span>=<span style="color:#65b042">"page-header"</span>></span>
+          <span style="color:#89bdff">&lt;<span style="color:#89bdff">h1</span>></span>Searchstagram<span style="color:#89bdff">&lt;/<span style="color:#89bdff">h1</span>></span>
+        <span style="color:#89bdff">&lt;/<span style="color:#89bdff">div</span>></span>
+
+        <span style="color:#89bdff">&lt;<span style="color:#89bdff">form</span> <span style="color:#89bdff">class</span>=<span style="color:#65b042">"search-form"</span>></span>
+          <span style="color:#89bdff">&lt;<span style="color:#89bdff">h3</span>></span>Type in a Hashtag and Click Search<span style="color:#89bdff">&lt;/<span style="color:#89bdff">h3</span>></span>
+
+          <span style="color:#89bdff">&lt;<span style="color:#89bdff">div</span> <span style="color:#89bdff">class</span>=<span style="color:#65b042">"form-group"</span>></span>
+            <span style="color:#e0c589">&lt;<span style="color:#e0c589">input</span> <span style="color:#e0c589">type</span>=<span style="color:#65b042">"text"</span> <span style="color:#e0c589">class</span>=<span style="color:#65b042">"search-input form-control"</span> <span style="color:#e0c589">placeholder</span>=<span style="color:#65b042">"Hashtag"</span>></span> <span style="color:#e0c589">&lt;/<span style="color:#e0c589">input</span>></span>
+          <span style="color:#89bdff">&lt;/<span style="color:#89bdff">div</span>></span>
+          <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">class</span>=<span style="color:#65b042">"btn btn-primary search"</span>></span>Search<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
+        <span style="color:#89bdff">&lt;/<span style="color:#89bdff">form</span>></span>
+
+      <span style="color:#89bdff">&lt;/<span style="color:#89bdff">div</span>></span>
+    <span style="color:#89bdff">&lt;/<span style="color:#89bdff">div</span>></span>
+
+  <span style="color:#89bdff">&lt;/<span style="color:#89bdff">div</span>></span>
+</pre>
+          
+
+          <p>Simple. We have a form with one input, our "search-input" and a button for submitting it.</p>
+        </div>
+
+        <div class="topic">
+          <h3>Click Handler</h3>
+
+          <p>Now we need to add a function that listens for clicks on our button, sets the <strong>tag</strong> variable to the user's input, and calls the <strong>fetch</strong> function. Start by creating a function that listens for clicks on the search button:</p>
+
+          <div class="exercise">
+            <div class="answer">
+              <pre style="background:#000;color:#f8f8f8"><span style="color:#9b859d">$</span>('<span style="color:#9b703f">.search</span>').on(<span style="color:#65b042">'click'</span>, <span style="color:#99cf50">function</span> (e) {
+  e.preventDefault();
+});</pre>
+            </div>
+
+            <button class="btn btn-primary check-answer">Check Your Answer</button>
+          </div>
+
+          <br>
+
+          <p>Now inside of our search function, set the variable <strong>tag</strong> to the user's input:</p>
+
+          <div class="exercise">
+            <div class="answer">
+              <pre style="background:#000;color:#f8f8f8"><span style="color:#9b859d">$</span>('<span style="color:#9b703f">.search</span>').on(<span style="color:#65b042">'click'</span>, <span style="color:#99cf50">function</span> (e) {
+  e.preventDefault();
+  tag <span style="color:#e28964">=</span> <span style="color:#9b859d">$</span>('<span style="color:#9b703f">.search-input</span>')<span style="color:#dad085">.val</span>();
+});
+</pre>
+            </div>
+
+            <button class="btn btn-primary check-answer">Check Your Answer</button>
+          </div>
+
+          <br>
+
+          <p>Lastly, call the <strong>fetch function from inside:</strong>
+
+          <div class="exercise">
+
+            <div class="answer">
+              <pre style="background:#000;color:#f8f8f8"><span style="color:#99cf50">var</span> tag <span style="color:#e28964">=</span> <span style="color:#65b042">"coffee"</span>;
+<span style="color:#99cf50">var</span> access_token <span style="color:#e28964">=</span> <span style="color:#65b042">"7010263.de35384.024d0b727a354fb2b0ebed23fc1c7d49"</span>;
+
+<span style="color:#99cf50">var</span> <span style="color:#89bdff">fetch</span> <span style="color:#e28964">=</span> <span style="color:#99cf50">function</span> () {
+  <span style="color:#e28964">$</span><span style="color:#dad085">.ajax</span>({
+    method: <span style="color:#65b042">"GET"</span>,
+    url: <span style="color:#65b042">'https://api.instagram.com/v1/tags/'</span> <span style="color:#e28964">+</span> tag <span style="color:#e28964">+</span> <span style="color:#65b042">'/media/recent?access_token='</span> <span style="color:#e28964">+</span> access_token,
+    dataType: <span style="color:#65b042">"jsonp"</span>,
+    jsonp: <span style="color:#65b042">"callback"</span>,
+    <span style="color:#89bdff">success</span>: <span style="color:#99cf50">function</span>(response) {
+      <span style="text-decoration:underline">console</span><span style="color:#dad085">.log</span>(response);
+    },
+    <span style="color:#89bdff">error</span>: <span style="color:#99cf50">function</span>(jqXHR, textStatus, errorThrown) {
+      <span style="color:#9b859d">$</span>('<span style="color:#9b703f">.searching</span>')<span style="color:#dad085">.hide</span>();
+      <span style="text-decoration:underline">console</span><span style="color:#dad085">.log</span>(textStatus);
+    }
+  }); 
+}
+
+<span style="color:#9b859d">$</span>('<span style="color:#9b703f">.search</span>').on(<span style="color:#65b042">'click'</span>, <span style="color:#99cf50">function</span> (e) {
+  e.preventDefault();
+  tag <span style="color:#e28964">=</span> <span style="color:#9b859d">$</span>('<span style="color:#9b703f">.search-input</span>')<span style="color:#dad085">.val</span>();
+
+  fetch();
+});
+</pre>
+            </div>
+
+            <button class="btn btn-primary check-answer">Check Your Answer</button>
+          </div>
+        </div>
+
+        <div class="topic">
+          <h4>Parsing the Data</h4>
+
+          <p>Almost done! Right now we're making different API calls to Instagram based on what users search for in our app. Bravo. Now, instread of just doing a console.log of our data, we need to loop through all of our pictures and append them to the page. First, we need some new HTML for where we'll put the pictures. Add the following highlighted HTML: </p>
+
+      
+          <pre style="background:#000;color:#f8f8f8">  <span style="color:#89bdff">&lt;<span style="color:#89bdff">div</span> <span style="color:#89bdff">class</span>=<span style="color:#65b042">"container"</span>></span>
+
+    <span style="color:#89bdff">&lt;<span style="color:#89bdff">div</span> <span style="color:#89bdff">class</span>=<span style="color:#65b042">"row"</span>></span>
+      <span style="color:#89bdff">&lt;<span style="color:#89bdff">div</span> <span style="color:#89bdff">class</span>=<span style="color:#65b042">"col-md-6 col-md-offset-3"</span>></span>
+
+        <span style="color:#89bdff">&lt;<span style="color:#89bdff">div</span> <span style="color:#89bdff">class</span>=<span style="color:#65b042">"page-header"</span>></span>
+          <span style="color:#89bdff">&lt;<span style="color:#89bdff">h1</span>></span>Searchstagram<span style="color:#89bdff">&lt;/<span style="color:#89bdff">h1</span>></span>
+        <span style="color:#89bdff">&lt;/<span style="color:#89bdff">div</span>></span>
+
+        <span style="color:#89bdff">&lt;<span style="color:#89bdff">form</span> <span style="color:#89bdff">class</span>=<span style="color:#65b042">"search-form"</span>></span>
+          <span style="color:#89bdff">&lt;<span style="color:#89bdff">h3</span>></span>Type in a Hashtag and Click Search<span style="color:#89bdff">&lt;/<span style="color:#89bdff">h3</span>></span>
+
+          <span style="color:#89bdff">&lt;<span style="color:#89bdff">div</span> <span style="color:#89bdff">class</span>=<span style="color:#65b042">"form-group"</span>></span>
+            <span style="color:#e0c589">&lt;<span style="color:#e0c589">input</span> <span style="color:#e0c589">type</span>=<span style="color:#65b042">"text"</span> <span style="color:#e0c589">class</span>=<span style="color:#65b042">"search-input form-control"</span> <span style="color:#e0c589">placeholder</span>=<span style="color:#65b042">"Hashtag"</span>></span> <span style="color:#e0c589">&lt;/<span style="color:#e0c589">input</span>></span>
+          <span style="color:#89bdff">&lt;/<span style="color:#89bdff">div</span>></span>
+          <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">class</span>=<span style="color:#65b042">"btn btn-primary search"</span>></span>Search<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
+        <span style="color:#89bdff">&lt;/<span style="color:#89bdff">form</span>></span>
+
+      <span style="color:#89bdff">&lt;/<span style="color:#89bdff">div</span>></span>
+    <span style="color:#89bdff">&lt;/<span style="color:#89bdff">div</span>></span>
+    <pre style="background:#002240;color:#fff">    <span style="color:#9effff"><span style="color:#e1efff">&lt;</span><span style="color:#9effff">div</span> <span style="color:#9effff">class</span>=<span style="color:#3ad900">"</span>row<span style="color:#3ad900">"</span><span style="color:#e1efff">></span></span>
+      <span style="color:#9effff"><span style="color:#e1efff">&lt;</span><span style="color:#9effff">div</span> <span style="color:#9effff">class</span>=<span style="color:#3ad900">"</span>col-md-10 col-md-offset-1<span style="color:#3ad900">"</span><span style="color:#e1efff">></span></span>
+        <span style="color:#9effff"><span style="color:#e1efff">&lt;</span><span style="color:#9effff">div</span> <span style="color:#9effff">class</span>=<span style="color:#3ad900">"</span>images<span style="color:#3ad900">"</span><span style="color:#e1efff">></span></span>
+        <span style="color:#9effff"><span style="color:#e1efff">&lt;/</span><span style="color:#9effff">div</span><span style="color:#e1efff">></span></span>
+      <span style="color:#9effff"><span style="color:#e1efff">&lt;/</span><span style="color:#9effff">div</span><span style="color:#e1efff">></span></span>
+    <span style="color:#9effff"><span style="color:#e1efff">&lt;/</span><span style="color:#9effff">div</span><span style="color:#e1efff">></span></span>
+</pre><span style="color:#89bdff">&lt;/<span style="color:#89bdff">div</span>></span>
+</pre>
+
+          <p>Now in our <strong>main.js</strong> file, we need to create a function called <strong>appendPics</strong> that gets called inside the "success" function. The <strong>appendPics</strong> function should take one argument, the "response" from the API and with it, loop through all our pictures and append them to the <strong>.images</strong> div. Let's start small by creating a function called <strong>appendPics</strong> above our click handler. It should take one argument called "response":</p>
+
+          <div class="exercise">
+            <div class="answer">
+              <pre style="background:#000;color:#f8f8f8"><span style="color:#99cf50">var</span> <span style="color:#89bdff">appendPics</span> <span style="color:#e28964">=</span> <span style="color:#99cf50">function</span> (response) {
+
+}
+</pre>
+            </div>
+
+            <button class="btn btn-primary check-answer">Check Your Answer</button>
+          </div>
+
+          <br>
+
+          <p>Now, inside our <strong>appendPics</strong> function, create a for loop that loops through each item in our <strong>response.data</strong> array:</p>
+
+          <div class="exercise">
+            <div class="answer">
+              <pre style="background:#000;color:#f8f8f8"><span style="color:#99cf50">var</span> <span style="color:#89bdff">appendPics</span> <span style="color:#e28964">=</span> <span style="color:#99cf50">function</span> (response) {
+  <span style="color:#e28964">for</span> (<span style="color:#99cf50">var</span> i <span style="color:#e28964">=</span> <span style="color:#3387cc">0</span>; i <span style="color:#e28964">&lt;</span> response.<span style="color:#cf6a4c">data</span><span style="color:#dad085">.length</span>; i <span style="color:#e28964">+</span><span style="color:#e28964">=</span> <span style="color:#3387cc">1</span>) {
+    
+  }
+}
+</pre>
+            </div>
+
+            <button class="btn btn-primary check-answer">Check Your Answer</button>
+          </div>
+
+          <br>
+
+          <p>Now, inside of our for loop, we want to access each image. For now, set the url equal to a variable called <strong>url</strong></p>
+
+          <div class="exercise">
+            <div class="answer">
+              <pre style="background:#000;color:#f8f8f8"><span style="color:#99cf50">var</span> <span style="color:#89bdff">appendPics</span> <span style="color:#e28964">=</span> <span style="color:#99cf50">function</span> (response) {
+  <span style="color:#e28964">for</span> (<span style="color:#99cf50">var</span> i <span style="color:#e28964">=</span> <span style="color:#3387cc">0</span>; i <span style="color:#e28964">&lt;</span> response.<span style="color:#cf6a4c">data</span><span style="color:#dad085">.length</span>; i <span style="color:#e28964">+</span><span style="color:#e28964">=</span> <span style="color:#3387cc">1</span>) {
+    <span style="color:#99cf50">var</span> url <span style="color:#e28964">=</span> response.<span style="color:#cf6a4c">data</span>[i].<span style="color:#cf6a4c">images</span>.low_resolution.url;
+  }
+}
+</pre>
+            </div>
+
+            <button class="btn btn-primary check-answer">Check Your Answer</button>
+          </div>
+
+          <br>
+
+          <p>Notice that what we just did above is identical to what we did in Part 1. Refer back to it if you need help understanding how we access the url.</p>
+
+          <p>Next we'll use our <strong>url</strong> variable and interpolate it inside inside of an image tag with the class "image". You can set it to a variable called <strong>image</strong>:</p>
+
+          <div class="exercise">
+            <div class="answer">
+              <pre style="background:#000;color:#f8f8f8"><span style="color:#99cf50">var</span> tag <span style="color:#e28964">=</span> <span style="color:#65b042">"coffee"</span>;
+<span style="color:#99cf50">var</span> access_token <span style="color:#e28964">=</span> <span style="color:#65b042">"7010263.de35384.024d0b727a354fb2b0ebed23fc1c7d49"</span>;
+
+<span style="color:#99cf50">var</span> <span style="color:#89bdff">fetch</span> <span style="color:#e28964">=</span> <span style="color:#99cf50">function</span> () {
+  <span style="color:#e28964">$</span><span style="color:#dad085">.ajax</span>({
+    method: <span style="color:#65b042">"GET"</span>,
+    url: <span style="color:#65b042">'https://api.instagram.com/v1/tags/'</span> <span style="color:#e28964">+</span> tag <span style="color:#e28964">+</span> <span style="color:#65b042">'/media/recent?access_token='</span> <span style="color:#e28964">+</span> access_token,
+    dataType: <span style="color:#65b042">"jsonp"</span>,
+    jsonp: <span style="color:#65b042">"callback"</span>,
+    <span style="color:#89bdff">success</span>: <span style="color:#99cf50">function</span>(response) {
+      appendPics(response);
+    },
+    <span style="color:#89bdff">error</span>: <span style="color:#99cf50">function</span>(jqXHR, textStatus, errorThrown) {
+      <span style="text-decoration:underline">console</span><span style="color:#dad085">.log</span>(textStatus);
+    }
+  }); 
+}
+
+<span style="color:#99cf50">var</span> <span style="color:#89bdff">appendPics</span> <span style="color:#e28964">=</span> <span style="color:#99cf50">function</span> (response) {
+  <span style="color:#e28964">for</span> (<span style="color:#99cf50">var</span> i <span style="color:#e28964">=</span> <span style="color:#3387cc">0</span>; i <span style="color:#e28964">&lt;</span> response.<span style="color:#cf6a4c">data</span><span style="color:#dad085">.length</span>; i <span style="color:#e28964">+</span><span style="color:#e28964">=</span> <span style="color:#3387cc">1</span>) {
+    <span style="color:#99cf50">var</span> url <span style="color:#e28964">=</span> response.<span style="color:#cf6a4c">data</span>[i].<span style="color:#cf6a4c">images</span>.low_resolution.url;
+    <span style="color:#99cf50">var</span> image <span style="color:#e28964">=</span> <span style="color:#65b042">'&lt;img class="image" src="'</span> <span style="color:#e28964">+</span> url <span style="color:#e28964">+</span> <span style="color:#65b042">'">&lt;/img>'</span>;
+    <span style="color:#9b859d">$</span>('<span style="color:#9b703f">.images</span>')<span style="color:#dad085">.append</span>(image);
+  }
+}
+
+<span style="color:#9b859d">$</span>('<span style="color:#9b703f">.search</span>').on(<span style="color:#65b042">'click'</span>, <span style="color:#99cf50">function</span> (e) {
+  e.preventDefault();
+  tag <span style="color:#e28964">=</span> <span style="color:#9b859d">$</span>('<span style="color:#9b703f">.search-input</span>')<span style="color:#dad085">.val</span>();
+
+  fetch();
+});
+</pre>
+              
+            </div>
+
+            <button class="btn btn-primary check-answer">Check Your Answer</button>
+          </div>
+
+
+
+        </div>
+
+        <h4>Done.</h4>
+
+        <p>Awesome! Take a <i class="fa fa-male"></i> <i class="fa fa-female"></i> break and drink a <i class="fa fa-beer"></i>. The <a href="searchstagram-3.html" target="_blank">next part</a> is optional advanced work that covers new topics if you're interested. Otherwise, please check out some additional resources I've put together <a href="resources/index.html" target="_blank">here</a>.
+
+        </div>
+      </div>
+    </div>
+
+    <script src="main.js"></script>
+  </body>
+</html>

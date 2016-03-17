@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="../style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <title></title>
+</head>
+  <body>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+
+          <div class="page-header">
+            <h1>Movie Buff Part 2</h1>
+          </div>
+
+          <a href="jquery-part-3.html">Back to jQuery Part 3</a>
+
+          <div class="topic">
+            <h3>Set Up</h3>
+        
+            <p>Tonight we're going to continue moving forward in our Movie Buff project, but we'll connect our core Javascript skillz to our jQuery skillz. Let's pair up again. Pick the first driver and navigator and who's computer you'll use throughout. And of course, when you see this icon:</p>
+
+            <i class="fa fa-refresh switch"></i>
+
+            <p>Switch driver and navigator roles!</p>
+            <p>Finally, <a href="https://github.com/amhayslip/movie-buff/tree/movie-buff-start" target="blank">download this folder</a>, open it in Sublime and let's chat about it.</p>
+          </div>
+
+           <hr>
+
+          <div class="topic">
+            <h3>index.html</h3>
+          
+            <p>As you can see, our <strong>index.html</strong> file is basically the same as our todo project. We're including bootstrap, our own stylesheet and jQuery at the top, then linking out <b>main.js</b> file in the bottom of our body tag.</p>
+          </div>
+
+          <div class="topic">
+            <h3>main.js</h3>
+          
+            <p>Our <strong>main.js</strong> file is also similar. We're listening for clicks on the <strong>post-movie</strong> button, then we're building an <strong>li</strong> that links to the movie by interpolating our variables into an html element and appending it to the <strong>movies</strong> list.</p>
+          </div>
+
+          <hr>
+
+          <div class="topic">
+            <h3>The Goal</h3>
+          
+            <p>Like we talked about before, we ultimately want the ability to give our Javascript programs a user interface. As of now, we have a user interface, but it's exteremly simple. What if we wanted to add something more complex, such as a like button? We would need to harness the power of Javascript objects and constructors to keep up with all that data. Let's begin.</p>
+          </div>
+
+          <div class="topic">
+            <h3>The Movie Object</h3>
+          
+            <p>What if each Movie in our project was an object? What would it look like. Discuss it with your partner before checking the answer.</p>
+
+            <div class="exercise">
+              <div class="answer">
+                <pre style="background:#000;color:#f8f8f8"><span style="color:#99cf50">var</span> movie <span style="color:#e28964">=</span> {
+  name: <span style="color:#65b042">"Legends of the Fall"</span>,
+  url: <span style="color:#65b042">"https://www.youtube.com/watch?v=ocAeBZdSDWg"</span>
+}
+</pre>
+              </div>
+
+              <button class="btn btn-primary check-answer">Check Your Answer</button>
+            </div>
+
+            <div class="exercise">
+              <br>
+              <p>Great, now how would you build a constructor function for a movie object?</p>
+
+              <div class="answer">
+                <pre style="background:#000;color:#f8f8f8"><span style="color:#99cf50">var</span> <span style="color:#89bdff">movie</span> <span style="color:#e28964">=</span> <span style="color:#99cf50">function</span> (name, url) {
+  <span style="color:#3e87e3">this</span>.<span style="color:#cf6a4c">name</span> <span style="color:#e28964">=</span> name;
+  <span style="color:#3e87e3">this</span>.url <span style="color:#e28964">=</span> url;
+}
+</pre>
+              </div>
+
+              <button class="btn btn-primary check-answer">Check Your Answer</button>
+            </div>
+          </div>
+
+          <div class="topic">   
+            <br> 
+            <p>With your partner, see if you can use the movie constructor to create a new movie object each time the user submits a movie.</p>
+
+            <div class="exercise">
+              <div class="answer">
+                <pre style="background:#000;color:#f8f8f8"><span style="color:#99cf50">var</span> <span style="color:#89bdff">Movie</span> <span style="color:#e28964">=</span> <span style="color:#99cf50">function</span> (name, url) {
+  <span style="color:#3e87e3">this</span>.<span style="color:#cf6a4c">name</span> <span style="color:#e28964">=</span> name;
+  <span style="color:#3e87e3">this</span>.url <span style="color:#e28964">=</span> url;
+}
+
+<span style="color:#9b859d">$</span>('<span style="color:#9b703f">.post-movie</span>').on(<span style="color:#65b042">'click'</span>, <span style="color:#99cf50">function</span> (e) {
+  e.preventDefault();
+  
+  <span style="color:#99cf50">var</span> name <span style="color:#e28964">=</span> <span style="color:#9b859d">$</span>('<span style="color:#9b703f">.movie-name-input</span>')<span style="color:#dad085">.val</span>();
+  <span style="color:#99cf50">var</span> url <span style="color:#e28964">=</span> <span style="color:#9b859d">$</span>('<span style="color:#9b703f">.movie-url-input</span>')<span style="color:#dad085">.val</span>();
+
+  <span style="color:#99cf50">var</span> movie <span style="color:#e28964">=</span> <span style="color:#e28964">new</span> <span style="text-decoration:underline">Movie</span>(name, url);
+
+  <span style="color:#9b859d">$</span>('<span style="color:#9b703f">.movies</span>')<span style="color:#dad085">.append</span>(<span style="color:#65b042">'&lt;li>&lt;a href='</span> <span style="color:#e28964">+</span> movie.url <span style="color:#e28964">+</span> <span style="color:#65b042">'>'</span> <span style="color:#e28964">+</span> movie.<span style="color:#cf6a4c">name</span> <span style="color:#e28964">+</span> <span style="color:#65b042">'&lt;/a>&lt;/li>'</span>);
+});
+
+</pre>
+              </div>
+
+              <button class="btn btn-primary check-answer">Check Your Answer</button>
+            </div>
+
+            <div class="topic">
+            <h3>Like Button</h3>
+          
+            <p>Let's add a like button to each movie. Start by adding a like button attribute and like function to the Movie constructor:</p>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#99cf50">var</span> <span style="color:#89bdff">Movie</span> <span style="color:#e28964">=</span> <span style="color:#99cf50">function</span> (name, url) {
+  <span style="color:#3e87e3">this</span>.<span style="color:#cf6a4c">name</span> <span style="color:#e28964">=</span> name;
+  <span style="color:#3e87e3">this</span>.url <span style="color:#e28964">=</span> url;
+  <span style="color:#3e87e3">this</span>.likes <span style="color:#e28964">=</span> <span style="color:#3387cc">0</span>;
+ 
+  <span style="color:#9b859d">this</span>.<span style="color:#89bdff">like</span> <span style="color:#e28964">=</span> <span style="color:#99cf50">function</span> () {
+    <span style="color:#3e87e3">this</span>.likes <span style="color:#e28964">+</span><span style="color:#e28964">=</span> <span style="color:#3387cc">1</span>;
+  }
+}
+</pre>
+
+            <p>We have an attribute called <strong>likes</strong> which is 0 by default and a method called <strong>like</strong> which increments our <strong>likes</strong> attribute by 1 each time it is invoked.</p>
+
+            <h4>Displaying our Likes</h4>
+
+            <p>Now this is where things begin to get tricky. We want to add a "like button" on to each movie that calls the Movie's "like" function and displays the new like count on the our page next to each like. Let's start part but displaying each a like button and a like-count when each movie is appended. The only thing we need to change for now is what goes inside our append method:</p>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#9b859d">$</span>('<span style="color:#9b703f">.movies</span>')<span style="color:#dad085">.append</span>(
+  <span style="color:#65b042">'&lt;li class="movie"> &lt;a href='</span> <span style="color:#e28964">+</span> movie.url <span style="color:#e28964">+</span> <span style="color:#65b042">'>'</span> <span style="color:#e28964">+</span> movie.<span style="color:#cf6a4c">name</span> <span style="color:#e28964">+</span> <span style="color:#65b042">'&lt;/a> &lt;i class="fa fa-thumbs-o-up like">&lt;/i> likes:&lt;span class="like-count">'</span> <span style="color:#e28964">+</span> movie.likes  <span style="color:#e28964">+</span> <span style="color:#65b042">'&lt;/span> &lt;/li>'</span>
+);
+</pre>
+
+            <p>Woah! That's long and ugly. In the future we'll rememdy that long, ugly html string with javacript templates, but for now it is what it is. You'll notice that we used an icon from <a href="http://fontawesome.io/">"font-awesome"</a> for our like button and simply displayed the like count inside a span tag.</p>
+
+            <h4>Listening for Clicks</h4>
+
+            <p>Now we need to invoke our like function each time the like button is pressed. Let's start small by creating a function that listens for clicks on the like button and just console.log's that it was clicked for now. Try it with your partner first.</p>
+
+            <div class="exercise">
+              <div class="answer">
+                <pre style="background:#000;color:#f8f8f8"><span style="color:#9b859d">$</span>('<span style="color:#9b703f">.like</span>').on(<span style="color:#65b042">'click'</span>, <span style="color:#99cf50">function</span> () {
+  <span style="text-decoration:underline">console</span><span style="color:#dad085">.log</span>(<span style="color:#65b042">'clicked!'</span>)
+});
+</pre>
+              </div>
+
+              <button class="btn btn-primary check-answer">Check Your Answer</button>
+            </div>
+
+            <br>
+
+            <p>Did it work? No, no it did not. Our program began listening for clicks on elements with the <strong>like</strong> class before any existed (a like button doesn't exist on the page until we append it) and doesn't know to start listening to new ones unless we tell it to. To rememdy this, we can wrap our "click listener" in a function that get's called AFTER the new buttons are appended. It will look like this:</p>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#9b859d">$</span>('<span style="color:#9b703f">.post-movie</span>').on(<span style="color:#65b042">'click'</span>, <span style="color:#99cf50">function</span> (e) {
+  e.preventDefault();
+  
+  <span style="color:#99cf50">var</span> name <span style="color:#e28964">=</span> <span style="color:#9b859d">$</span>('<span style="color:#9b703f">.movie-name-input</span>')<span style="color:#dad085">.val</span>();
+  <span style="color:#99cf50">var</span> url <span style="color:#e28964">=</span> <span style="color:#9b859d">$</span>('<span style="color:#9b703f">.movie-url-input</span>')<span style="color:#dad085">.val</span>();
+
+  <span style="color:#99cf50">var</span> movie <span style="color:#e28964">=</span> <span style="color:#e28964">new</span> <span style="text-decoration:underline">Movie</span>(name, url);
+
+  <span style="color:#9b859d">$</span>('<span style="color:#9b703f">.movies</span>')<span style="color:#dad085">.append</span>(
+  <span style="color:#65b042">'&lt;li class="movie"> &lt;a href='</span> <span style="color:#e28964">+</span> movie.url <span style="color:#e28964">+</span> <span style="color:#65b042">'>'</span> <span style="color:#e28964">+</span> movie.<span style="color:#cf6a4c">name</span> <span style="color:#e28964">+</span> <span style="color:#65b042">'&lt;/a> &lt;i class="fa fa-thumbs-o-up like">&lt;/i> likes:&lt;span class="like-count">'</span> <span style="color:#e28964">+</span> movie.likes  <span style="color:#e28964">+</span> <span style="color:#65b042">'&lt;/span> &lt;/li>'</span>
+);
+
+  <span style="color:#9b859d">$</span>('<span style="color:#9b703f">.like</span>').off();
+
+  bindEvents();
+});
+
+<span style="color:#99cf50">var</span> <span style="color:#89bdff">bindEvents</span> <span style="color:#e28964">=</span> <span style="color:#99cf50">function</span> () {
+  <span style="color:#9b859d">$</span>('<span style="color:#9b703f">.like</span>').on(<span style="color:#65b042">'click'</span>, <span style="color:#99cf50">function</span> () {
+    <span style="text-decoration:underline">console</span><span style="color:#dad085">.log</span>(<span style="color:#65b042">'clicked!'</span>);
+  });
+}
+</pre>
+
+        <p>Additionally, we used the<strong>off()</strong> to unbind any clicks. This helps us from binding click on things more than once and doing all kinds of strange things.</p>
+    
+        <h4>Finding our Object</h4>
+
+        <p>Now we need to actually find the movie object we're looking for to update the <strong>likes</strong> attribute on by calling the <strong>like</strong> method. To do this, we need to start storing our movie objects in an array. Make your main.js file look like this:</p>
+
+        <pre style="background:#000;color:#f8f8f8"><span style="color:#99cf50">var</span> movies <span style="color:#e28964">=</span> [];
+
+<span style="color:#99cf50">var</span> <span style="color:#89bdff">Movie</span> <span style="color:#e28964">=</span> <span style="color:#99cf50">function</span> (name, url) {
+  <span style="color:#3e87e3">this</span>.<span style="color:#cf6a4c">name</span> <span style="color:#e28964">=</span> name;
+  <span style="color:#3e87e3">this</span>.url <span style="color:#e28964">=</span> url;
+  <span style="color:#3e87e3">this</span>.likes <span style="color:#e28964">=</span> <span style="color:#3387cc">0</span>;
+ 
+  <span style="color:#9b859d">this</span>.<span style="color:#89bdff">like</span> <span style="color:#e28964">=</span> <span style="color:#99cf50">function</span> () {
+    <span style="color:#3e87e3">this</span>.likes <span style="color:#e28964">+</span><span style="color:#e28964">=</span> <span style="color:#3387cc">1</span>;
+  }
+}
+
+<span style="color:#9b859d">$</span>('<span style="color:#9b703f">.post-movie</span>').on(<span style="color:#65b042">'click'</span>, <span style="color:#99cf50">function</span> (e) {
+  e.preventDefault();
+  
+  <span style="color:#99cf50">var</span> name <span style="color:#e28964">=</span> <span style="color:#9b859d">$</span>('<span style="color:#9b703f">.movie-name-input</span>')<span style="color:#dad085">.val</span>();
+  <span style="color:#99cf50">var</span> url <span style="color:#e28964">=</span> <span style="color:#9b859d">$</span>('<span style="color:#9b703f">.movie-url-input</span>')<span style="color:#dad085">.val</span>();
+
+  <span style="color:#99cf50">var</span> movie <span style="color:#e28964">=</span> <span style="color:#e28964">new</span> <span style="text-decoration:underline">Movie</span>(name, url);
+
+  movies.<span style="color:#dad085">push</span>(movie);
+
+  <span style="color:#9b859d">$</span>('<span style="color:#9b703f">.movies</span>')<span style="color:#dad085">.append</span>(
+  <span style="color:#65b042">'&lt;li class="movie"> &lt;a href='</span> <span style="color:#e28964">+</span> movie.url <span style="color:#e28964">+</span> <span style="color:#65b042">'>'</span> <span style="color:#e28964">+</span> movie.<span style="color:#cf6a4c">name</span> <span style="color:#e28964">+</span> <span style="color:#65b042">'&lt;/a> &lt;i class="fa fa-thumbs-o-up like">&lt;/i> likes:&lt;span class="like-count">'</span> <span style="color:#e28964">+</span> movie.likes  <span style="color:#e28964">+</span> <span style="color:#65b042">'&lt;/span> &lt;/li>'</span>
+);
+
+  bindEvents();
+});
+
+<span style="color:#99cf50">var</span> <span style="color:#89bdff">bindEvents</span> <span style="color:#e28964">=</span> <span style="color:#99cf50">function</span> () {
+  <span style="color:#9b859d">$</span>('<span style="color:#9b703f">.like</span>').on(<span style="color:#65b042">'click'</span>, <span style="color:#99cf50">function</span> () {
+    <span style="text-decoration:underline">console</span><span style="color:#dad085">.log</span>(<span style="color:#65b042">'clicked!'</span>);
+  });
+}
+</pre>
+
+          <p>Notice that we added an array called <strong>movies</strong> and we're now pushing our movie objects into the <strong>movies</strong> array each time a movie is created. Great, but now we need a way to identify each movie so that we can find it in the movies array. For this, we can use the index of our movies in the movies array and their position in the list on the page because they'll both be the same. Change your bindEvents function to look like this:</p>
+
+          <pre style="background:#000;color:#f8f8f8"><span style="color:#99cf50">var</span> <span style="color:#89bdff">bindEvents</span> <span style="color:#e28964">=</span> <span style="color:#99cf50">function</span> () {
+  <span style="color:#9b859d">$</span>('<span style="color:#9b703f">.like</span>').on(<span style="color:#65b042">'click'</span>, <span style="color:#99cf50">function</span> () {
+    <span style="color:#99cf50">var</span> index <span style="color:#e28964">=</span> <span style="color:#9b859d">$</span>(<span style="color:#3e87e3">this</span>).closest(<span style="color:#65b042">'li'</span>)<span style="color:#dad085">.index</span>();
+    
+    <span style="text-decoration:underline">console</span><span style="color:#dad085">.log</span>(index);
+  });
+}
+</pre>
+
+        <p>Here, we're introducing two new jQuery methods: <a href="https://api.jquery.com/closest/">closest()</a> and <a href="https://api.jquery.com/index/">index()</a>.</p>
+
+        <p>The "closest" method is searching for parent items in the DOM. For example, our method is looking for "list items" that are parents of what was clicked (the like button).</p>
+
+        <p>The "index" method gives us the current position of the element as it relates to it's sibling elements. In other words, it tells us which position our "list item" is in.</p>
+
+        <h3>Partner Challenge 1</h3>
+
+        <p>Beneath where we're declaring the <strong>index</strong> variable, find the corresponding movie object in the <strong>movies</strong> array and call the <strong>like</strong> method on it.</p>
+
+        <div class="exercise">
+          <div class="answer">
+            <pre style="background:#000;color:#f8f8f8">movies[index].like();
+</pre>
+          </div>
+
+          <button class="btn btn-primary check-answer">Check Your Answer</button>
+        </div>
+
+        <h3>Partner Challenge 2</h3>
+
+        <p>Now, let's changes the html of <strong>.like-count</strong> to match the object's like attribute. Hint: you will have to use both <a href="https://api.jquery.com/closest/">closest()</a> and <a href="https://api.jquery.com/find/">find()</a>.</p>
+
+        <div class="exercise">
+          <div class="answer">
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#99cf50">var</span> <span style="color:#89bdff">bindEvents</span> <span style="color:#e28964">=</span> <span style="color:#99cf50">function</span> () {
+  <span style="color:#e28964">$</span>(<span style="color:#65b042">'.like'</span>).on(<span style="color:#65b042">'click'</span>, <span style="color:#99cf50">function</span> () {
+    <span style="color:#99cf50">var</span> index <span style="color:#e28964">=</span> <span style="color:#e28964">$</span>(<span style="color:#3e87e3">this</span>).closest(<span style="color:#65b042">'li'</span>).<span style="color:#cf6a4c">index</span>();
+
+    movies[index].like();
+    <span style="color:#e28964">$</span>(<span style="color:#3e87e3">this</span>).closest(<span style="color:#65b042">'li'</span>).<span style="color:#dad085">find</span>(<span style="color:#65b042">'.like-count'</span>).html(movies[index].likes);
+  });
+}
+</pre>
+          </div>
+
+          <button class="btn btn-primary check-answer">Check Your Answer</button>
+        </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="../main.js"></script>
+  </body>
+</html>

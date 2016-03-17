@@ -1,0 +1,53 @@
+.close-answer {
+  background-color: red !important;
+  border: none !important;
+}
+
+.answer {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+.check-answer {
+  display: block;
+}
+
+h3 {
+  margin-top: 40px;
+}
+
+h4 {
+  margin-top: 20px;
+}
+
+.last {
+  margin-bottom: 200px;
+}
+
+body {
+  margin-bottom: 200px;
+}
+
+.nav li {
+  font-size: 18px;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
+}
+
+.switch {
+  display: block;
+  padding-bottom: 10px;
+  padding-top: 5px;
+  font-size: 30px;
+}
+
+.mid-switch {
+  padding-top: 35px;
+}

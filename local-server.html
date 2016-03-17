@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <title></title>
+</head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+
+          <div class="page-header">
+            <h1>Setting up a Local Server</h1>
+          </div>
+
+          <a href="index.html">Back to Home</a>
+
+          <div class="topic">
+            <h3>Intro</h3>
+
+            <p>This will guide your through setting up a local server as mentioned in the Searchstagram project. Have you project opened and completed to the end of <strong>Searchstagaram Part 3.</strong></p>
+          </div>
+
+          <div class="topic">
+            <h3>Using Gulp</h3>
+
+            <p>If you have a mac/linux machine, there are other simpler options than using <strong>gulp</strong> and you skip this and read the one called <strong>Using Java</strong> below if you want. There are other options too with a windows machine too, but they're probably not simpler than this. Now let's look at those files we skipped over last time:</p>
+
+
+            <h4>node_modules</h4>
+            <p>These are basically dependency files that we've installed using <strong>NPM</strong>. NPM stands for Node Package Manager and it's a way that we can use Node to install and keep track of "packages" (code other people have written that could be useful to us... like Bootstrap or jQuery). In order to use <strong>NPM</strong> you have to download NODE. Go <a href="https://nodejs.org/en/download/" target="_blank">here</a> to do that.</p>
+
+            <h4>package.json</h4>
+            <p>This is a JSON file (Javascript Object Notation) that containers all the things we have installed inside of our <strong>node_modules</strong> folder.</p>
+
+            <h4>gulpfile.js</h4>
+            <p>Gulp is one of those "packages" that we've installed into the "node_modules" folder using NPM. It's a task manager that will... perform tasks when we tell it to. One of those tasks is going to be serving our <strong>index.html</strong> file at <strong>http://localhost:4000</strong>.</p>
+
+            <h4>Using Gulp with a Mac/Linux Machine</h4>
+            <p>We have one "gulp" task already built and it will run our server. All we have to do is tell it to. We'll do this through the "command line". Open up the program on your computer called "terminal". You will see the following:</p>
+
+            <img src="http://www.elevationacademy.co/wp-content/uploads/2016/02/Screen-Shot-2016-02-10-at-11.35.56-AM.png"></img>
+
+            <p>Now type in...</p>
+
+            <pre style="background:#000;color:#f8f8f8">ls</pre>
+
+            <p>...and press Enter. This will list all the files in your current directory. We want to navigate to where our Searchstragram folder is. To move forward into a folder, we use <strong>cd + foldername</strong>. For example, if I wanted to move into the <strong>Desktop</strong> folder I would type:</p>
+
+            <pre style="background:#000;color:#f8f8f8">cd desktop</pre>
+
+            <p>And if I wanted to back up one, I would type:</p>
+
+            <pre style="background:#000;color:#f8f8f8">cd ..</pre>
+
+            <p>Using these commands, navigate to your <strong>searchstagram</strong> folder and type:</p>
+
+            <pre style="background:#000;color:#f8f8f8">npm install</pre>
+
+            <p>Then type:</p>
+
+            <pre style="background:#000;color:#f8f8f8">sudo npm install gulp</pre>
+
+            <p>This will prompt you for your computer's password. Type it in and press enter. And finally type:</p>
+
+            <pre style="background:#000;color:#f8f8f8">gulp</pre>
+
+            <p>And there it is! Your server should be running at http://localhost:4000</p>
+
+            <h4>Using Gulp with a Windows Machine</h4>
+            <p>We have one "gulp" task already build and it will run our server. All we have to do is tell it to. We'll do this through the "command line". Open up the program on your computer called "command prompt". You will see the following:</p>
+
+            <p>Now type in...</p>
+
+            <pre style="background:#000;color:#f8f8f8">dir</pre>
+
+            <p>...and press Enter. This will list all the files in your current directory. We want to navigate to where our Searchstragram folder is. To move forward into a folder, we use <strong>cd + foldername</strong>. For example, if I wanted to move into the <strong>Desktop</strong> folder I would type:</p>
+
+            <pre style="background:#000;color:#f8f8f8">cd desktop</pre>
+
+            <p>And if I wanted to back up one, I would type:</p>
+
+            <pre style="background:#000;color:#f8f8f8">cd..</pre>
+
+            <p>Using these commands, navigate to your <strong>searchstagram</strong> folder and type:</p>
+
+            <pre style="background:#000;color:#f8f8f8">npm install</pre>
+
+            <p>Then type:</p>
+
+            <pre style="background:#000;color:#f8f8f8">npm install gulp</pre>
+
+            <p>This will prompt you for your computer's password. Type it in and press enter. And finally type:</p>
+
+            <pre style="background:#000;color:#f8f8f8">gulp</pre>
+
+            <p>And there it is! Your server should be running at http://localhost:4000</p>
+
+
+
+          </div>
+
+          <div class="topic">
+            <h3>Using Java (only for Mac/Linux)</h3>
+
+            <p>Open up <strong>terminal</strong>. Navigate to your <strong>searchstagram</strong> folder and type:</p>
+
+            <pre style="background:#000;color:#f8f8f8">python -m SimpleHTTPServer 4000</pre>
+  
+          </div>
+
+
+
+        </div>
+      </div>
+    </div>
+
+    <script src="main.js"></script>
+  </body>
+</html>

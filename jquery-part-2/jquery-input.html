@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="../style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <title></title>
+</head>
+  <body>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+
+          <div class="page-header">
+            <h1>jQuery: Getting User Input</h1>
+          </div>
+
+          <a href="jquery-part-2.html">Back to jQuery Part 2</a>
+          <div class="topic">
+            <h3>Set Up</h3>
+        
+            <p>Let's go ahead and pair again for this one. Pick a driver, navigator and who's computer you will use to type and who's you will use to guide you through the lesson. Remember to switch when you see this icon:</p>
+
+            <i class="fa fa-refresh switch"></i>
+          </div>
+
+          <hr>
+
+          <div class="topic">
+            <h3>Intro</h3>
+        
+            <p>So far we've been writing a bunch of code that cannot really be used (think, the Library) because there's no user interface. Well, let's change that and let's start with getting input from the user. Check out <a href="http://codepen.io/amhayslip/pen/rxrpKy" target="blank">this example, and we'll break it down.</a></p>
+
+            <h4>The <span><</span>input<span>></span> Tag and .val() Method</h4>
+            <p>The input tag created for us our blank text box.</p>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">input</span>>&lt;/<span style="color:#89bdff">input</span>></span></pre>
+            <input></input>
+
+            <p></p>
+            <p>We can get the "value" of the text inside of the text box by using jQuery's <a href="http://api.jquery.com/val/">.val()</a> method. The following would return a string of text from an input tag:
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#9b859d">$</span>('<span style="color:#cda869">input</span>')<span style="color:#dad085">.val</span>()</pre>
+
+            <h4>The .append() Method</h4> 
+            <p>The .append() method adds or "appends" HTML to a given element. For example:</p>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#9b859d">$</span>('<span style="color:#cda869">div</span>')<span style="color:#dad085">.append</span>(<span style="color:#65b042">'hello world'</span>);</pre>
+
+            <p>The code above would append 'hello world' to the generic div element.</p>
+            <p>Let's practice these new concepts. Again, open a new pen or javascript file and do your best to write the answer before peeking.</p>
+          </div>
+
+           <hr>
+
+
+          <div class="exercise">
+            <h4>Input Exercise 1</h4>
+
+            <p>Write some jQuery that would capture the input from the following HTML:</p>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">input</span> <span style="color:#e0c589">type</span>=<span style="color:#65b042">"text"</span> <span style="color:#e0c589">value</span>=<span style="color:#65b042">"Type here"</span>></span></pre>
+
+            <div class="answer">
+              <pre style="background:#000;color:#f8f8f8"><span style="color:#9b859d">$</span>('<span style="color:#cda869">input</span>')<span style="color:#dad085">.val</span>()</pre>
+            </div>
+
+            <button class="btn btn-primary check-answer">Check Your Answer</button>
+          </div>
+
+          <div class="exercise">
+            <h4>Input Exercise 2</h4>
+
+            <p>Write some jQuery that would capture only the <strong>email</strong> input from the following HTML form:</p>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">form</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">input</span> <span style="color:#89bdff">class</span>=<span style="color:#65b042">"email-input"</span> <span style="color:#89bdff">type</span>=<span style="color:#65b042">"text"</span> <span style="color:#89bdff">value</span>=<span style="color:#65b042">"enter your email"</span>>&lt;/<span style="color:#89bdff">input</span>></span>
+  <span style="color:#89bdff">&lt;<span style="color:#89bdff">input</span> <span style="color:#89bdff">class</span>=<span style="color:#65b042">"name-input"</span> <span style="color:#89bdff">type</span>=<span style="color:#65b042">"text"</span> <span style="color:#89bdff">value</span>=<span style="color:#65b042">"enter your name"</span>>&lt;/<span style="color:#89bdff">input</span>></span>
+  
+  <span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">class</span>=<span style="color:#65b042">"btn submit"</span>></span>Click to Submit<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">form</span>></span>
+</pre>
+
+            <div class="answer">
+              <pre style="background:#000;color:#f8f8f8"><span style="color:#9b859d">$</span>('<span style="color:#9b703f">.email-input</span>')<span style="color:#dad085">.val</span>();</pre>
+            </div>
+
+            <button class="btn btn-primary check-answer">Check Your Answer</button>
+          </div>
+
+          <i class="fa fa-refresh switch mid-switch"></i>
+
+          <div class="exercise">
+            <h4>Input Exercise 3</h4>
+
+            <p>Write some jQuery that would capture the text of the following input and assign it to a variable called <strong>userInput</strong>.</p>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">input</span> <span style="color:#e0c589">class</span>=<span style="color:#65b042">"user-input"</span> <span style="color:#e0c589">type</span>=<span style="color:#65b042">"text"</span> <span style="color:#e0c589">value</span>=<span style="color:#65b042">"Type here"</span>></span></pre>
+
+            <div class="answer">
+              <pre style="background:#000;color:#f8f8f8"><span style="color:#99cf50">var</span> userInput <span style="color:#e28964">=</span> <span style="color:#9b859d">$</span>('<span style="color:#9b703f">.user-input</span>')<span style="color:#dad085">.val</span>();</pre>
+            </div>
+
+            <button class="btn btn-primary check-answer">Check Your Answer</button>
+          </div>
+
+
+          <div class="exercise">
+            <h4>Input Exercise 4 (bonus)</h4>
+
+            <p>Write some jQuery that would <strong>clear</strong> the following HTML input field:</p>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">input</span> <span style="color:#e0c589">type</span>=<span style="color:#65b042">"text"</span> <span style="color:#e0c589">value</span>=<span style="color:#65b042">"Type here"</span>></span></pre>
+
+            <div class="answer">
+              <pre style="background:#000;color:#f8f8f8"><span style="color:#9b859d">$</span>('<span style="color:#cda869">input</span>')<span style="color:#dad085">.val</span>('')</pre>
+            </div>
+
+            <button class="btn btn-primary check-answer">Check Your Answer</button>
+          </div>
+
+          <div class="exercise">
+            <h4>Input Exercise 5 (bonus)</h4>
+
+            <p>Write some Javascript/jQuery that captures the input from the following HTML and uses it to create a new instance of the Person called <strong>person1</strong>.</p>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">input</span> <span style="color:#89bdff">class</span>=<span style="color:#65b042">"name-input"</span> <span style="color:#89bdff">type</span>=<span style="color:#65b042">"text"</span> <span style="color:#89bdff">value</span>=<span style="color:#65b042">"enter your name"</span>>&lt;/<span style="color:#89bdff">input</span>></span></pre>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#99cf50">var</span> <span style="color:#89bdff">Person</span> <span style="color:#e28964">=</span> <span style="color:#99cf50">function</span> (name) {
+  <span style="color:#3e87e3">this</span>.<span style="color:#cf6a4c">name</span> <span style="color:#e28964">=</span> name;
+}
+</pre>
+
+            <div class="answer">
+              <pre style="background:#000;color:#f8f8f8"><span style="color:#99cf50">var</span> personName <span style="color:#e28964">=</span> <span style="color:#9b859d">$</span>('<span style="color:#9b703f">.name-input</span>')<span style="color:#dad085">.val</span>();
+
+<span style="color:#99cf50">var</span> person1 <span style="color:#e28964">=</span> <span style="color:#e28964">new</span> <span style="text-decoration:underline">Person</span>(personName);
+</pre>
+            </div>
+
+            <button class="btn btn-primary check-answer">Check Your Answer</button>
+          </div>
+
+          <hr>
+
+          <div class="exercise">
+            <h4>Append Exercise 1</h4>
+
+            <p>Write some jQuery that would append the string, <strong>"this is a string!"</strong> to the div below:</p>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">div</span>>&lt;/<span style="color:#89bdff">div</span>></span></pre>
+
+            <div class="answer">
+              <pre style="background:#000;color:#f8f8f8"><span style="color:#9b859d">$</span>('<span style="color:#cda869">div</span>')<span style="color:#dad085">.append</span>(<span style="color:#65b042">'this is a string!'</span>);</pre>
+            </div>
+
+            <button class="btn btn-primary check-answer">Check Your Answer</button>
+          </div>
+
+          <div class="exercise">
+            <h4>Append Exercise 2</h4>
+
+            <p>Write some jQuery that would append the string this HTML...</p>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#e0c589">&lt;<span style="color:#e0c589">li</span>></span>Carrots<span style="color:#e0c589">&lt;/<span style="color:#e0c589">li</span>></span></pre>
+
+            <p>To the end of this unordered list:</p>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">ul</span> <span style="color:#89bdff">class</span>=<span style="color:#65b042">"grocery-list"</span>></span>
+  <span style="color:#e0c589">&lt;<span style="color:#e0c589">li</span>></span>Fish<span style="color:#e0c589">&lt;/<span style="color:#e0c589">li</span>></span>
+  <span style="color:#e0c589">&lt;<span style="color:#e0c589">li</span>></span>Apples<span style="color:#e0c589">&lt;/<span style="color:#e0c589">li</span>></span>
+  <span style="color:#e0c589">&lt;<span style="color:#e0c589">li</span>></span>Milk<span style="color:#e0c589">&lt;/<span style="color:#e0c589">li</span>></span>
+  <span style="color:#e0c589">&lt;<span style="color:#e0c589">li</span>></span>Cheese<span style="color:#e0c589">&lt;/<span style="color:#e0c589">li</span>></span>
+  <span style="color:#e0c589">&lt;<span style="color:#e0c589">li</span>></span>Eggs<span style="color:#e0c589">&lt;/<span style="color:#e0c589">li</span>></span>
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">ul</span>></span>
+</pre>
+
+            <div class="answer">
+              <pre style="background:#000;color:#f8f8f8"><span style="color:#9b859d">$</span>('<span style="color:#9b703f">.grocery-list</span>')<span style="color:#dad085">.append</span>(<span style="color:#65b042">'&lt;li>Carrots&lt;li>'</span>);</pre>
+            </div>
+
+            <button class="btn btn-primary check-answer">Check Your Answer</button>
+          </div>
+
+          <i class="fa fa-refresh switch mid-switch"></i>
+
+          <div class="exercise">
+            <h4>Append Exercise 3</h4>
+
+            <p>Write some jQuery that would append the variable <strong>item</strong> inside of this list as a new <strong>li</strong>:</p>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#99cf50">var</span> item <span style="color:#e28964">=</span> <span style="color:#65b042">"Underwear"</span>;</pre>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">ul</span> <span style="color:#89bdff">class</span>=<span style="color:#65b042">"packing-list"</span>></span>
+  <span style="color:#e0c589">&lt;<span style="color:#e0c589">li</span>></span>Shirts<span style="color:#e0c589">&lt;/<span style="color:#e0c589">li</span>></span>
+  <span style="color:#e0c589">&lt;<span style="color:#e0c589">li</span>></span>Socks<span style="color:#e0c589">&lt;/<span style="color:#e0c589">li</span>></span>
+  <span style="color:#e0c589">&lt;<span style="color:#e0c589">li</span>></span>Toothbrush<span style="color:#e0c589">&lt;/<span style="color:#e0c589">li</span>></span>
+  <span style="color:#e0c589">&lt;<span style="color:#e0c589">li</span>></span>Pants<span style="color:#e0c589">&lt;/<span style="color:#e0c589">li</span>></span>
+  <span style="color:#e0c589">&lt;<span style="color:#e0c589">li</span>></span>iPod (for early 2000's vibes)<span style="color:#e0c589">&lt;/<span style="color:#e0c589">li</span>></span>
+  <span style="color:#e0c589">&lt;<span style="color:#e0c589">li</span>></span>Portable CD Player (for early 90's vibes)<span style="color:#e0c589">&lt;/<span style="color:#e0c589">li</span>></span>
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">ul</span>></span>
+</pre>
+
+           
+
+            <div class="answer">
+              <pre style="background:#000;color:#f8f8f8"><span style="color:#9b859d">$</span>('<span style="color:#9b703f">.packing-list</span>')<span style="color:#dad085">.append</span>(<span style="color:#65b042">'&lt;li>'</span> <span style="color:#e28964">+</span> item <span style="color:#e28964">+</span> <span style="color:#65b042">'&lt;/li>'</span>);</pre>
+            </div>
+
+            <button class="btn btn-primary check-answer">Check Your Answer</button>
+          </div>
+
+          <div class="exercise">
+            <h4>For All the Marbles Partner Exercise!</h4>
+
+            <p>Write some jQuery that would capture the input from the following input when the user clicks the button, and appends it the unordered list as a new list item.</p>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">ul</span> <span style="color:#89bdff">class</span>=<span style="color:#65b042">"favorite-songs"</span>></span>
+  <span style="color:#e0c589">&lt;<span style="color:#e0c589">li</span>></span>Hey Jude<span style="color:#e0c589">&lt;/<span style="color:#e0c589">li</span>></span>
+  <span style="color:#e0c589">&lt;<span style="color:#e0c589">li</span>></span>Hotline Bling<span style="color:#e0c589">&lt;/<span style="color:#e0c589">li</span>></span>
+  <span style="color:#e0c589">&lt;<span style="color:#e0c589">li</span>></span>Hello<span style="color:#e0c589">&lt;/<span style="color:#e0c589">li</span>></span>
+<span style="color:#89bdff">&lt;/<span style="color:#89bdff">ul</span>></span> 
+
+<span style="color:#89bdff">&lt;<span style="color:#89bdff">input</span> <span style="color:#89bdff">class</span>=<span style="color:#65b042">"song-input"</span>>&lt;/<span style="color:#89bdff">input</span>></span>
+<span style="color:#e0c589">&lt;<span style="color:#e0c589">button</span> <span style="color:#e0c589">class</span>=<span style="color:#65b042">"song-submit"</span>></span>Sumit<span style="color:#e0c589">&lt;/<span style="color:#e0c589">button</span>></span>
+</pre>
+
+            <div class="answer">
+              <pre style="background:#000;color:#f8f8f8"><span style="color:#9b859d">$</span>('<span style="color:#9b703f">.song-submit</span>').on(<span style="color:#65b042">'click'</span>, <span style="color:#99cf50">function</span> () {
+  <span style="color:#99cf50">var</span> song <span style="color:#e28964">=</span> <span style="color:#9b859d">$</span>('<span style="color:#9b703f">.song-input</span>')<span style="color:#dad085">.val</span>();
+  <span style="color:#9b859d">$</span>('<span style="color:#9b703f">.favorite-songs</span>')<span style="color:#dad085">.append</span>(<span style="color:#65b042">'&lt;li>'</span> <span style="color:#e28964">+</span> song <span style="color:#e28964">+</span> <span style="color:#65b042">'&lt;/li>'</span>);
+});
+</pre>
+            </div>
+
+            <button class="btn btn-primary check-answer">Check Your Answer</button>
+          </div>
+
+          <hr>
+
+          <h4>Done</h4>
+
+          <p>Awesome! Be sure to ask any question's you might have about the above material. Take a <i class="fa fa-male"></i> <i class="fa fa-female"></i> break, drink a <i class="fa fa-beer"></i>, then get started on the partner project <a href="jquery-input-project.html">here</a>.
+
+    
+        </div>
+      </div>
+    </div>
+
+    <script src="../main.js"></script>
+  </body>
+</html>

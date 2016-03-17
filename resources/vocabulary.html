@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <title></title>
+</head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+
+          <div class="page-header">
+            <h1>Coding 101 Vocabulary</h1>
+          </div>
+
+          <a href="index.html">Back to Resources</a>
+
+          <div class="topic">
+            <h3><u>HTML Vocabulary</u></h3>
+
+            <p><strong><h4>HTML Element:</h4></strong> An HTML element is an individual component of an HTML document or web page, once this has been parsed into the Document Object Model. For example a paragraph "tag", creates a paragraph <strong>element</strong> once it is on a web-page.</p>
+
+            <p><strong><h4>HTML Tag:</strong></h4> An HTML tag is actual syntax of HTML which make HTML Elements. The example below is a "paragraph" or "p" "tag". The first is considered an <strong>opening tag</strong> and the second is considered a <strong>closing tag</strong>.</p>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#89bdff">&lt;<span style="color:#89bdff">p</span>>&lt;/<span style="color:#89bdff">p</span>></span></pre>
+          </div>
+
+          <hr>
+
+          <div class="topic">
+            <h3><u>CSS Vocabulary</u></h3>
+
+            <p><strong><h4>CSS Selector:</h4></strong> A CSS Selector is the way in which HTML elements are selected to style. The following example is a CSS selector that is selecting an element with the class, "container".</p>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#9b703f">.container</span></pre>
+
+            <p><strong><h4>CSS Property:</h4></strong> A CSS property is an identifier, that is a human-readable name, that defines which feature is considered. In the example below, "font-family" is the property, and "sans-serif" is the value.</p>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#cda869">p</span> {
+  <span style="color:#c5af75">font-family</span>: <span style="color:#65b042">"sans-serif"</span>;
+}
+</pre>
+          </div>
+
+          <hr>
+
+          <div class="topic">
+            <h3><u>Javascript Vocabulary</u></h3>
+
+            <p><strong><h4>Function:</h4></strong> A function is a Javascript procedure - a set of statements that performs a task or calculates a value. The following is an example:</p>
+
+            <pre style="background:#000;color:#f8f8f8"><span style="color:#99cf50">var</span> <span style="color:#89bdff">greet</span> <span style="color:#e28964">=</span> <span style="color:#99cf50">function</span> () {
+  <span style="text-decoration:underline">console</span><span style="color:#dad085">.log</span>(<span style="color:#65b042">"hello"</span>);
+}
+</pre>
+
+          <p><strong><h4>Function Argument:</h4></strong> An argument is a variable that can be passed to functions and made available inside their scope. The following is a function with one argument called <strong>greeting</strong>:</p>
+
+          <pre style="background:#000;color:#f8f8f8"><span style="color:#99cf50">var</span> <span style="color:#89bdff">greet</span> <span style="color:#e28964">=</span> <span style="color:#99cf50">function</span> (greeting) {
+  <span style="text-decoration:underline">console</span><span style="color:#dad085">.log</span>(greeting);
+}
+</pre>
+  
+          <p><strong><h4>Javascript Object:</h4></strong> Javascript objects are data-structures that have key-value pairs. The following is an example of an object:</p>
+
+          <pre style="background:#000;color:#f8f8f8"><span style="color:#99cf50">var</span> car <span style="color:#e28964">=</span> {
+  color: <span style="color:#65b042">"red"</span>,
+}
+</pre>
+
+          <p><strong><h4>Javascript Object Property:</h4></strong> Object properites are the "key" in the kay-value pair. They are the descriptors of objects. In the example below, "name" is a property, and "Bob" is it's value:</p>
+
+          <pre style="background:#000;color:#f8f8f8"><span style="color:#99cf50">var</span> person <span style="color:#e28964">=</span> {
+  name: <span style="color:#65b042">"Bob"</span>
+}
+</pre>
+  
+          <p><strong><h4>Javascript Method:</h4></strong> A Javascipt "Method" is a function that happens to also be the propety of an object. In the example below, "go" is a method of our car object:</p>
+
+          <pre style="background:#000;color:#f8f8f8"><span style="color:#99cf50">var</span> car <span style="color:#e28964">=</span> {
+  <span style="color:#89bdff">go</span>: <span style="color:#99cf50">function</span> () {
+    <span style="text-decoration:underline">console</span><span style="color:#dad085">.log</span>(<span style="color:#65b042">"going!"</span>);
+  }
+}
+</pre>
+
+
+          <p><strong><h4>Constructor Function:</h4></strong> A Javascript Constructor Function is a special kind of function that creates (or "constructs") objects. They can be identified by their capitalized variable name, and reference to "this". For example:</p>
+
+          <pre style="background:#000;color:#f8f8f8"><span style="color:#99cf50">var</span> <span style="color:#89bdff">Car</span> <span style="color:#e28964">=</span> <span style="color:#99cf50">function</span> () {
+  <span style="color:#3e87e3">this</span>.<span style="color:#cf6a4c">name</span> <span style="color:#e28964">=</span> <span style="color:#65b042">"ferrari"</span>;
+}
+</pre>
+
+
+
+          </div>
+
+    
+
+    
+
+        </div>
+      </div>
+    </div>
+
+    <script src="main.js"></script>
+  </body>
+</html>
